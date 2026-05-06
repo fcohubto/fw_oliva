@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OLIVA Dashboard | Workflow operativo</title>
     <meta name="description" content="Dashboard operativo para ejecutar, validar y preparar entregables del framework OLIVA." />
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="/css/index.css" />
 </head>
 
 <body>
@@ -64,117 +64,153 @@
                         Selecciona un modelo según la profundidad del proyecto. <br>Después podrás copiar prompts, validar outputs y preparar el formato de delivery.
                     </p>
                 </div>
-
-                <section class="onboarding-steps" aria-labelledby="onboarding-steps-title">
-                    <div class="onboarding-steps__header">
-                        <p class="onboarding-steps__eyebrow">Guía rápida</p>
-                        <h2 class="onboarding-steps__title" id="onboarding-steps-title">
-                            Cómo empezar
-                        </h2>
-                        <p class="onboarding-steps__text">
-                            Sigue este flujo para elegir un modelo, ejecutar los prompts, validar cada salida y preparar el entregable final.
-                        </p>
-                    </div>
-
-                    <ol class="onboarding-steps__list" aria-label="Pasos para usar OLIVA Dashboard.">
-                        <li class="onboarding-step">
-                            <span class="onboarding-step__number">1</span>
-                            <span class="onboarding-step__content">
-                                <span class="onboarding-step__title">Elige un modelo</span>
-                            <span class="onboarding-step__text">
-                                    Define la profundidad del proyecto antes de iniciar el flujo.
-                                </span>
-                            </span>
-                        </li>
-
-                        <li class="onboarding-step">
-                            <span class="onboarding-step__number">2</span>
-                            <span class="onboarding-step__content">
-                                <span class="onboarding-step__title">Avanza paso a paso</span>
-                            <span class="onboarding-step__text">
-                                    Sigue la secuencia de prompts del modelo activo sin romper trazabilidad.
-                                </span>
-                            </span>
-                        </li>
-
-                        <li class="onboarding-step">
-                            <span class="onboarding-step__number">3</span>
-                            <span class="onboarding-step__content">
-                                <span class="onboarding-step__title">Copia y ejecuta</span>
-                            <span class="onboarding-step__text">
-                                    Usa el prompt original en tu herramienta de IA sin modificar su estructura.
-                                </span>
-                            </span>
-                        </li>
-
-                        <li class="onboarding-step">
-                            <span class="onboarding-step__number">4</span>
-                            <span class="onboarding-step__content">
-                                <span class="onboarding-step__title">Valida la salida</span>
-                            <span class="onboarding-step__text">
-                                    Revisa el checklist, marca el estado y confirma si el output puede avanzar.
-                                </span>
-                            </span>
-                        </li>
-
-                        <li class="onboarding-step">
-                            <span class="onboarding-step__number">5</span>
-                            <span class="onboarding-step__content">
-                                <span class="onboarding-step__title">Prepara el delivery</span>
-                            <span class="onboarding-step__text">
-                                    Ordena el resultado final según el objetivo del proyecto o presentación.
-                                </span>
-                            </span>
-                        </li>
-                    </ol>
-                </section>
-
                 <div class="model-selector" id="model-selector" role="list" aria-label="Modelos disponibles.">
                     <button class="model-card" type="button" data-model="rapido" aria-pressed="false">
-                        <span class="model-card__icon" aria-hidden="true">R</span>
-
+                        <span class="model-card__icon">R</span>
+                    
                         <span class="model-card__content">
-                            <span class="model-card__kicker">Modelo rápido</span>
+                            <span class="model-card__meta">7 prompts</span>
+                            <span class="model-card__kicker">Modelo inicial</span>
                             <span class="model-card__name">Rápido</span>
                             <span class="model-card__description">
                                 Para exploraciones iniciales, piezas comerciales simples o validaciones veloces.
                             </span>
-                            <span class="model-card__meta">7 prompts</span>
+                    
+                            <span class="model-card__info">
+                                <strong>Ventajas</strong>
+                                <span>Velocidad, foco y menor fricción de entrada.</span>
+                            </span>
+                    
+                            <span class="model-card__info">
+                                <strong>Uso recomendado:</strong>
+                                <span>Cuando necesitas avanzar rápido sin recorrer todo OLIVA.</span>
+                            </span>
                         </span>
-
+                    
                         <span class="model-card__state" aria-hidden="true"></span>
                     </button>
 
                     <button class="model-card" type="button" data-model="controlado" aria-pressed="false">
                         <span class="model-card__icon" aria-hidden="true">C</span>
-
+                    
                         <span class="model-card__content">
+                            <span class="model-card__meta">12 prompts</span>
                             <span class="model-card__kicker">Modelo equilibrado</span>
                             <span class="model-card__name">Controlado</span>
                             <span class="model-card__description">
                                 Para proyectos que requieren equilibrio entre velocidad, criterio y validación.
                             </span>
-                            <span class="model-card__meta">12 prompts</span>
+                    
+                            <span class="model-card__info">
+                                <strong>Ventajas</strong>
+                                <span>Más control, mejor trazabilidad y un balance sano entre rapidez y profundidad.</span>
+                            </span>
+                    
+                            <span class="model-card__info">
+                                <strong>Uso recomendado:</strong>
+                                <span>Cuando necesitas una estructura sólida sin entrar aún al recorrido más extenso.</span>
+                            </span>
                         </span>
-
-                        <span class="model-card__state" aria-hidden="true"></span>
                     </button>
 
                     <button class="model-card" type="button" data-model="profundo" aria-pressed="false">
                         <span class="model-card__icon" aria-hidden="true">P</span>
-
+                    
                         <span class="model-card__content">
+                            <span class="model-card__meta">16 prompts</span>
                             <span class="model-card__kicker">Modelo completo</span>
                             <span class="model-card__name">Profundo</span>
                             <span class="model-card__description">
                                 Para proyectos complejos que necesitan mayor trazabilidad, análisis y cobertura.
                             </span>
-                            <span class="model-card__meta">16 prompts</span>
+                    
+                            <span class="model-card__info">
+                                <strong>Ventajas</strong>
+                                <span>Mayor profundidad, mejor soporte de decisión y cobertura más completa del proceso.</span>
+                            </span>
+                    
+                            <span class="model-card__info">
+                                <strong>Uso recomendado:</strong>
+                                <span>Cuando el proyecto exige más investigación, más validación y una lectura más estratégica.</span>
+                            </span>
                         </span>
-
-                        <span class="model-card__state" aria-hidden="true"></span>
                     </button>
                 </div>
+                <section class="home-guide" aria-labelledby="home-guide-title">
+                    <div class="home-guide__intro">
+                        <p class="home-guide__eyebrow">Guía rápida</p>
+
+                        <h2 class="home-simple-title" id="home-guide-title">
+                            Oliva lo hace simple
+                        </h2>
+                    </div>
+
+                    <div class="onboarding-steps" aria-labelledby="onboarding-steps-title">
+                        <div class="onboarding-steps__header">
+                            <h3 class="onboarding-steps__title" id="onboarding-steps-title">
+                                Cómo empezar
+                            </h3>
+
+                            <p class="onboarding-steps__text">
+                                Sigue este flujo para elegir un modelo, ejecutar los prompts, validar cada salida y preparar el entregable final.
+                            </p>
+                        </div>
+
+                        <ol class="onboarding-steps__list" aria-label="Pasos para usar OLIVA Dashboard.">
+                            <li class="onboarding-step">
+                                <span class="onboarding-step__number">1</span>
+                                <span class="onboarding-step__content">
+                                    <span class="onboarding-step__title">Elige un modelo</span>
+                                <span class="onboarding-step__text">
+                                        Define la profundidad del proyecto antes de iniciar el flujo.
+                                    </span>
+                                </span>
+                            </li>
+
+                            <li class="onboarding-step">
+                                <span class="onboarding-step__number">2</span>
+                                <span class="onboarding-step__content">
+                                    <span class="onboarding-step__title">Avanza paso a paso</span>
+                                <span class="onboarding-step__text">
+                                        Sigue la secuencia de prompts del modelo activo.
+                                    </span>
+                                </span>
+                            </li>
+
+                            <li class="onboarding-step">
+                                <span class="onboarding-step__number">3</span>
+                                <span class="onboarding-step__content">
+                                    <span class="onboarding-step__title">Copia y ejecuta</span>
+                                <span class="onboarding-step__text">
+                                        Usa el prompt original en tu herramienta de IA sin modificar su estructura.
+                                    </span>
+                                </span>
+                            </li>
+
+                            <li class="onboarding-step">
+                                <span class="onboarding-step__number">4</span>
+                                <span class="onboarding-step__content">
+                                    <span class="onboarding-step__title">Valida la salida</span>
+                                <span class="onboarding-step__text">
+                                        Revisa el checklist, marca el estado y confirma si el output puede avanzar.
+                                    </span>
+                                </span>
+                            </li>
+
+                            <li class="onboarding-step">
+                                <span class="onboarding-step__number">5</span>
+                                <span class="onboarding-step__content">
+                                    <span class="onboarding-step__title">Prepara el delivery</span>
+                                <span class="onboarding-step__text">
+                                        Ordena el resultado final según el objetivo del proyecto o presentación.
+                                    </span>
+                                </span>
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+
+
             </section>
 
             <section class="workflow" id="workflow" aria-label="Workflow activo de OLIVA." hidden>
@@ -488,12 +524,19 @@
                 </section>
 
             </section>
-
+            <footer class="home-footer" aria-label="Créditos del dashboard.">
+                <p class="home-footer__text">
+                    Hola, soy
+                    <a class="home-footer__link" href="https://www.linkedin.com/in/francisco-orellana-v/" target="_blank" rel="noopener noreferrer">
+                        Francisco
+                    </a> y soy el creador de OLIVA OS.
+                </p>
+            </footer>
         </main>
 
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
