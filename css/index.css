@@ -1,4 +1,17 @@
+/* =========================================
+   FONT.
+   Tipografía principal del sistema.
+========================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap");
+
+/* =========================================
+   TOKENS.
+   Base visual global de OLIVA Dashboard.
+========================================= */
+
 :root {
+    /* COLORS — BASE. */
     --color-bg: #11130f;
     --color-bg-deep: #080a07;
     --color-bg-soft: #1a1d16;
@@ -15,9 +28,11 @@
     --color-text-muted: #777d70;
     --color-text-inverse: #f7f4ec;
     --color-text-inverse-soft: #c9c5b8;
+    /* COLORS — BRAND. */
     --color-primary: #7c8f35;
     --color-primary-strong: #a3b84d;
     --color-primary-soft: #eef4d8;
+    /* COLORS — STATES. */
     --color-warning: #d9a520;
     --color-warning-soft: #fff5d6;
     --color-success: #4f8f48;
@@ -26,14 +41,28 @@
     --color-danger-soft: #fbe7e5;
     --color-neutral: #777d70;
     --color-neutral-soft: #ecebe5;
+    /* MODEL COLORS. */
+    --model-rapido: #8fa63a;
+    --model-rapido-soft: #eef5d5;
+    --model-rapido-border: rgba(143, 166, 58, 0.42);
+    --model-controlado: #4f8f7a;
+    --model-controlado-soft: #e3f3ed;
+    --model-controlado-border: rgba(79, 143, 122, 0.42);
+    --model-profundo: #7a6bb0;
+    --model-profundo-soft: #ebe7f7;
+    --model-profundo-border: rgba(122, 107, 176, 0.42);
+    /* SHADOWS. */
     --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 18px 48px rgba(0, 0, 0, 0.14);
+    --shadow-lg: 0 28px 68px rgba(0, 0, 0, 0.12);
     --shadow-dark: 0 18px 42px rgba(0, 0, 0, 0.32);
+    /* RADIUS. */
     --radius-xs: 10px;
     --radius-sm: 14px;
     --radius-md: 18px;
     --radius-lg: 24px;
     --radius-xl: 32px;
+    /* SPACING. */
     --space-1: 0.5rem;
     --space-2: 0.75rem;
     --space-3: 1rem;
@@ -42,10 +71,35 @@
     --space-6: 2rem;
     --space-7: 2.5rem;
     --space-8: 3rem;
-    --font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    /* TYPOGRAPHY. */
+    --font-family: "Figtree", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --text-2xs: 0.5rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-md: 1.25rem;
+    --text-lg: 1.5rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2rem;
+    --text-3xl: 2.5rem;
+    --text-4xl: 3rem;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-strong: 800;
+    --weight-black: 900;
+    /* LAYOUT. */
     --container-max: 1480px;
+    /* MOTION. */
     --transition-base: 180ms ease;
 }
+
+
+/* =========================================
+   RESET / BASE.
+========================================= */
 
 *,
 *::before,
@@ -56,14 +110,20 @@
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 body {
     min-height: 100vh;
+    max-width: 100%;
     margin: 0;
+    overflow-x: clip;
     font-family: var(--font-family);
     color: var(--color-text);
     background: radial-gradient(circle at top left, rgba(124, 143, 53, 0.18), transparent 34rem), linear-gradient(135deg, var(--color-bg-deep), var(--color-bg));
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -84,20 +144,26 @@ fieldset:disabled {
     cursor: not-allowed;
 }
 
-button:focus-visible,
-select:focus-visible,
-input:focus-visible,
-a:focus-visible {
-    outline: 3px solid rgba(163, 184, 77, 0.72);
-    outline-offset: 3px;
-}
-
 pre {
     margin: 0;
 }
 
 code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-family: var(--font-mono);
+}
+
+
+/* =========================================
+   ACCESSIBILITY.
+========================================= */
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(163, 184, 77, 0.72);
+    outline-offset: 3px;
 }
 
 .skip-link {
@@ -111,7 +177,7 @@ code {
     background: var(--color-surface);
     border-radius: var(--radius-xs);
     text-decoration: none;
-    font-weight: 800;
+    font-weight: var(--weight-strong);
     box-shadow: var(--shadow-md);
 }
 
@@ -119,15 +185,46 @@ code {
     transform: translateY(0);
 }
 
+
+/* =========================================
+   APP SHELL.
+========================================= */
+
 .app-shell {
     width: 100%;
     min-height: 100vh;
 }
 
+.dashboard,
+.workflow,
+.workspace-grid,
+.workspace-grid__content,
+.prompt-detail-panel,
+.prompt-detail-grid,
+.prompt-original-card,
+.validation-card,
+.helper-prompt-card,
+.prompt-code {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.prompt-code {
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   HEADER.
+   Cabecera principal de OLIVA Dashboard.
+========================================= */
+
 .app-header {
     position: relative;
-    top: 0;
-    z-index: 20;
+    top: auto;
+    z-index: 50;
     display: grid;
     gap: var(--space-3);
     padding: var(--space-3) var(--space-4);
@@ -155,7 +252,7 @@ code {
     color: var(--color-bg);
     background: linear-gradient(135deg, var(--color-primary-strong), var(--color-primary));
     border-radius: 50%;
-    font-weight: 950;
+    font-weight: var(--weight-black);
     box-shadow: 0 0 0 7px rgba(124, 143, 53, 0.16);
 }
 
@@ -164,28 +261,18 @@ code {
     gap: 0.15rem;
 }
 
-.app-header__eyebrow,
-.model-start__eyebrow,
-.workflow-hero__eyebrow,
-.panel__eyebrow,
-.context-pill__label,
-.progress-overview__label,
-.breadcrumb-bar__label,
-.summary-card__label {
+.app-header__eyebrow {
     margin: 0;
-    font-size: 0.72rem;
-    font-weight: 850;
+    color: var(--color-primary-strong);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
-.app-header__eyebrow {
-    color: var(--color-primary-strong);
-}
-
 .app-header__title {
-    font-size: 1.12rem;
-    font-weight: 900;
+    font-size: var(--text-base);
+    font-weight: var(--weight-black);
     line-height: 1;
     letter-spacing: -0.04em;
 }
@@ -205,12 +292,18 @@ code {
 }
 
 .context-pill__label {
+    margin: 0;
     color: var(--color-text-inverse-soft);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
 .context-pill__value {
     color: var(--color-text-inverse);
-    font-weight: 850;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
 }
 
 .delivery-select,
@@ -222,235 +315,19 @@ code {
     background: var(--color-surface-soft);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xs);
-    font-weight: 750;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
 }
 
 .context-pill .delivery-select {
     min-height: 38px;
 }
 
-.dashboard {
-    width: min(100%, var(--container-max));
-    margin: 0 auto;
-    display: grid;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 36rem), linear-gradient(180deg, #f5f2ea 0%, #ebe7db 100%);
-}
 
-.model-start {
-    min-height: calc(100vh - 90px);
-    display: grid;
-    gap: var(--space-5);
-    align-content: center;
-    padding: var(--space-4) 0;
-}
-
-.model-start__header {
-    max-width: 760px;
-}
-
-.model-start__eyebrow,
-.workflow-hero__eyebrow,
-.panel__eyebrow,
-.summary-card__label {
-    color: var(--color-primary);
-}
-
-.model-start__title {
-    margin: var(--space-2) 0 var(--space-3);
-    font-size: clamp(2.25rem, 12vw, 5rem);
-    line-height: 0.92;
-    letter-spacing: -0.075em;
-}
-
-.model-start__text {
-    max-width: 720px;
-    margin: 0;
-    color: var(--color-text-soft);
-    font-size: 1rem;
-    line-height: 1.7;
-}
-
-.model-selector {
-    display: grid;
-    gap: var(--space-3);
-}
-
-.model-card {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: var(--space-3);
-    align-items: start;
-    padding: var(--space-4);
-    color: var(--color-text);
-    text-align: left;
-    background: rgba(255, 253, 247, 0.9);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
-}
-
-.model-card:hover {
-    border-color: rgba(124, 143, 53, 0.55);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.model-card.is-active {
-    background: linear-gradient(135deg, rgba(124, 143, 53, 0.18), rgba(255, 253, 247, 0.96));
-    border-color: rgba(124, 143, 53, 0.8);
-}
-
-.model-card.is-locked {
-    opacity: 0.5;
-}
-
-.model-card__icon {
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    color: var(--color-primary);
-    background: rgba(124, 143, 53, 0.1);
-    border: 1px solid rgba(124, 143, 53, 0.24);
-    border-radius: 50%;
-    font-weight: 950;
-}
-
-.model-card__content {
-    display: grid;
-    gap: 0.45rem;
-}
-
-.model-card__kicker {
-    color: var(--color-primary);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.model-card__name {
-    font-size: 1.2rem;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-}
-
-.model-card__description {
-    color: var(--color-text-soft);
-    line-height: 1.55;
-    font-size: 0.95rem;
-}
-
-.model-card__meta {
-    width: fit-content;
-    margin-top: var(--space-1);
-    padding: 0.35rem 0.65rem;
-    color: var(--color-text);
-    background: rgba(17, 19, 15, 0.06);
-    border-radius: 999px;
-    font-size: 0.78rem;
-    font-weight: 850;
-}
-
-.model-card__state {
-    width: 18px;
-    height: 18px;
-    border: 1px solid rgba(17, 19, 15, 0.22);
-    border-radius: 50%;
-}
-
-.model-card.is-active .model-card__state {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 5px rgba(124, 143, 53, 0.15);
-}
-
-.model-start__helper {
-    padding: var(--space-4);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)), var(--color-bg);
-    border: 1px solid var(--color-border-inverse);
-    border-radius: var(--radius-lg);
-    color: var(--color-text-inverse);
-    box-shadow: var(--shadow-dark);
-}
-
-.model-start__helper-title {
-    margin: 0 0 var(--space-3);
-    font-size: 1rem;
-}
-
-.model-start__steps {
-    display: grid;
-    gap: var(--space-2);
-    margin: 0;
-    padding-left: 1.25rem;
-    color: var(--color-text-inverse-soft);
-    line-height: 1.55;
-}
-
-.model-start__steps li::marker {
-    color: var(--color-primary-strong);
-    font-weight: 900;
-}
-
-.workflow {
-    display: grid;
-    gap: var(--space-4);
-}
-
-.workflow[hidden],
-.model-start[hidden] {
-    display: none;
-}
-
-.workflow-hero {
-    display: grid;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    color: var(--color-text-inverse);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)), var(--color-bg);
-    border: 1px solid var(--color-border-inverse);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-dark);
-}
-
-.workflow-hero__title {
-    margin: var(--space-1) 0 var(--space-2);
-    font-size: clamp(2rem, 9vw, 4rem);
-    line-height: 0.96;
-    letter-spacing: -0.075em;
-}
-
-.workflow-hero__text {
-    max-width: 760px;
-    margin: 0;
-    color: var(--color-text-inverse-soft);
-    line-height: 1.65;
-}
-
-.summary-card {
-    padding: var(--space-4);
-    color: var(--color-text);
-    background: rgba(255, 253, 247, 0.92);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-}
-
-.summary-card__title {
-    margin: var(--space-1) 0 var(--space-2);
-    font-size: 1.1rem;
-    letter-spacing: -0.03em;
-}
-
-.summary-card__text {
-    margin: 0;
-    color: var(--color-text-soft);
-    line-height: 1.6;
-}
+/* =========================================
+   BUTTONS.
+   Botones base del sistema.
+========================================= */
 
 .button {
     min-height: 42px;
@@ -459,9 +336,10 @@ code {
     justify-content: center;
     gap: var(--space-1);
     padding: 0.72rem 1rem;
-    border-radius: var(--radius-xs);
     border: 1px solid transparent;
-    font-weight: 850;
+    border-radius: var(--radius-xs);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
     line-height: 1;
     transition: transform var(--transition-base), border-color var(--transition-base), background var(--transition-base), opacity var(--transition-base);
 }
@@ -492,532 +370,81 @@ code {
     border-color: rgba(163, 184, 77, 0.58);
 }
 
-.progress-overview,
-.breadcrumb-bar,
-.panel {
-    background: rgba(255, 253, 247, 0.92);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(18px);
-}
-
-.progress-overview {
-    display: grid;
-    gap: var(--space-4);
-    padding: var(--space-4);
-}
-
-.progress-overview__group {
-    display: grid;
-    gap: var(--space-2);
-}
-
-.progress-overview__title {
-    margin: 0;
-    font-size: clamp(1.25rem, 5vw, 1.65rem);
-    letter-spacing: -0.04em;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 10px;
-    overflow: hidden;
-    background: rgba(17, 19, 15, 0.11);
-    border-radius: 999px;
-}
-
-.progress-bar__fill {
-    display: block;
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-strong));
-    border-radius: inherit;
-    transition: width 220ms ease;
-}
-
-.progress-overview__metric {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-1);
-}
-
-.progress-overview__value {
-    font-size: clamp(2rem, 10vw, 3rem);
-    font-weight: 950;
-    line-height: 0.9;
-    letter-spacing: -0.07em;
-}
-
-.progress-overview__caption {
-    color: var(--color-text-soft);
-    font-size: 0.9rem;
-    font-weight: 750;
-}
-
-.progress-overview__status {
-    display: grid;
-    gap: var(--space-2);
-    align-content: start;
-}
-
-.status-badge {
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin: 0;
-    padding: 0.45rem 0.7rem;
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 850;
-}
-
-.status-badge::before {
-    content: "";
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    background: currentColor;
-}
-
-.status-badge--pending {
-    color: var(--color-neutral);
-    background: var(--color-neutral-soft);
-}
-
-.status-badge--review,
-.status-badge--needs-review {
-    color: #8f6900;
-    background: var(--color-warning-soft);
-}
-
-.status-badge--validated,
-.status-badge--success {
-    color: var(--color-success);
-    background: var(--color-success-soft);
-}
-
-.breadcrumb-bar {
-    padding: var(--space-3);
-    overflow-x: auto;
-}
-
-.breadcrumb-bar__list {
-    min-width: max-content;
-    display: flex;
-    gap: var(--space-2);
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.breadcrumb-bar__item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
-    padding: 0.5rem 0.75rem;
-    background: rgba(17, 19, 15, 0.04);
-    border: 1px solid rgba(17, 19, 15, 0.08);
-    border-radius: 999px;
-}
-
-.breadcrumb-bar__label {
-    color: var(--color-text-muted);
-}
-
-.breadcrumb-bar__value {
-    font-weight: 850;
-}
-
-.panel {
-    padding: var(--space-4);
-}
-
-.panel__header {
-    display: grid;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-}
-
-.panel__title {
-    margin: var(--space-1) 0 0;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    letter-spacing: -0.03em;
-}
-
-.panel__text {
-    margin: 0;
-    color: var(--color-text-soft);
-    line-height: 1.6;
-}
-
-.prompt-sequence {
-    display: grid;
-    gap: var(--space-2);
-}
-
-.prompt-step {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-3);
-    align-items: start;
-    padding: var(--space-3);
-    color: var(--color-text);
-    text-align: left;
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
-}
-
-.prompt-step:hover {
-    border-color: rgba(124, 143, 53, 0.55);
-    transform: translateY(-1px);
-}
-
-.prompt-step.is-selected {
-    background: linear-gradient(135deg, rgba(124, 143, 53, 0.19), rgba(255, 253, 247, 0.96));
-    border-color: rgba(124, 143, 53, 0.7);
-}
-
-.prompt-step.is-validated {
-    border-color: rgba(79, 143, 72, 0.44);
-}
-
-.prompt-step.is-needs-review {
-    border-color: rgba(217, 165, 32, 0.55);
-}
-
-.prompt-step__number {
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-    color: var(--color-text-soft);
-    background: rgba(17, 19, 15, 0.04);
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
-    font-size: 0.78rem;
-    font-weight: 850;
-}
-
-.prompt-step.is-selected .prompt-step__number {
-    color: var(--color-surface);
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.prompt-step__content {
-    display: grid;
-    gap: 0.25rem;
-}
-
-.prompt-step__title {
-    font-weight: 850;
-    letter-spacing: -0.02em;
-}
-
-.prompt-step__description {
-    color: var(--color-text-soft);
-    font-size: 0.88rem;
-    line-height: 1.45;
-}
-
-.prompt-step__state {
-    grid-column: 1 / -1;
-    width: fit-content;
-    padding: 0.32rem 0.55rem;
-    color: var(--color-text-soft);
-    background: rgba(17, 19, 15, 0.06);
-    border-radius: 999px;
-    font-size: 0.76rem;
-    font-weight: 800;
-}
-
-.workspace-grid {
-    display: grid;
-    gap: var(--space-4);
-}
-
-.prompt-detail-panel {
-    display: grid;
-    gap: var(--space-4);
-    scroll-margin-top: 210px;
-}
-
-.prompt-detail-panel .panel__header {
-    margin-bottom: 0;
-}
-
-.prompt-status-control {
-    display: grid;
-    gap: var(--space-1);
-}
-
-.prompt-status-control__label {
-    color: var(--color-text-soft);
-    font-size: 0.78rem;
-    font-weight: 850;
-}
-
-.prompt-tabs {
-    display: flex;
-    gap: var(--space-2);
-    overflow-x: auto;
-    padding-bottom: var(--space-1);
-    border-bottom: 1px solid var(--color-border);
-}
-
-.prompt-tabs__button {
-    flex: 0 0 auto;
-    padding: 0.7rem 0.85rem;
-    color: var(--color-text-soft);
-    background: transparent;
-    border: 0;
-    border-bottom: 2px solid transparent;
-    font-size: 0.88rem;
-    font-weight: 850;
-}
-
-.prompt-tabs__button.is-active {
-    color: var(--color-text);
-    border-bottom-color: var(--color-primary);
-}
-
-.prompt-detail-grid {
-    display: grid;
-    gap: var(--space-3);
-}
-
-.prompt-detail-grid>article {
-    width: 100%;
-}
-
-.detail-card,
-.prompt-original-card,
-.validation-card,
-.helper-prompt-card {
-    padding: var(--space-4);
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-}
-
-.detail-card__title,
-.prompt-original-card__title,
-.validation-card__title,
-.helper-prompt-card__title {
-    margin: 0 0 var(--space-2);
-    font-size: 1rem;
-    letter-spacing: -0.02em;
-}
-
-.detail-card__text,
-.prompt-original-card__text,
-.validation-card__text,
-.helper-prompt-card__text,
-.delivery-hint-card__text,
-.next-step-card__text {
-    margin: 0;
-    color: var(--color-text-soft);
-    line-height: 1.6;
-}
-
-.detail-card__group {
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid rgba(17, 19, 15, 0.08);
-}
-
-.detail-card__intro {
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-}
-
-.detail-toggle {
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-}
-
-.detail-toggle:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-}
-
-.detail-toggle__summary {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    cursor: pointer;
-    color: var(--color-text);
-    font-weight: 850;
-    list-style: none;
-}
-
-.detail-toggle__summary::-webkit-details-marker {
-    display: none;
-}
-
-.detail-toggle__summary::after {
-    content: "+";
-    width: 24px;
-    height: 24px;
-    display: grid;
-    place-items: center;
-    flex: 0 0 auto;
-    color: var(--color-primary);
-    background: rgba(124, 143, 53, 0.1);
-    border-radius: 50%;
-    font-weight: 950;
-}
-
-.detail-toggle[open] .detail-toggle__summary::after {
-    content: "−";
-}
-
-.detail-toggle__content {
-    padding-top: var(--space-3);
-}
-
-.detail-toggle__content .detail-card__list,
-.detail-toggle__content .detail-card__text {
-    margin: 0;
-}
-
-.detail-card__subtitle {
-    margin: 0 0 var(--space-2);
-    font-size: 0.92rem;
-}
-
-.detail-card__list,
-.expected-output-list {
-    display: grid;
-    gap: var(--space-2);
-    margin: 0;
-    padding-left: 1.15rem;
-    color: var(--color-text-soft);
-    line-height: 1.55;
-}
-
-.detail-card__list li::marker,
-.expected-output-list li::marker {
-    color: var(--color-primary);
-}
-
-.prompt-original-card__header,
-.validation-card__header,
-.helper-prompt-card__header {
-    display: grid;
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
-}
-
-.prompt-code {
-    max-height: 320px;
-    overflow: auto;
-    padding: var(--space-4);
-    color: #f2f0e8;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)), #171815;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-sm);
-    font-size: 0.88rem;
-    line-height: 1.7;
-    white-space: pre-wrap;
-}
-
-.prompt-code--helper {
-    background: linear-gradient(135deg, rgba(124, 143, 53, 0.16), rgba(255, 255, 255, 0.02)), #171815;
-}
-
-.validation-checklist {
-    display: grid;
-    gap: var(--space-2);
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.validation-checklist__legend {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-}
-
-.validation-check {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-2);
-    align-items: start;
-    padding: var(--space-2);
-    border: 1px solid rgba(17, 19, 15, 0.08);
-    border-radius: var(--radius-xs);
-    background: rgba(17, 19, 15, 0.025);
-}
-
-.validation-check__input {
-    position: absolute;
-    opacity: 0;
-}
-
-.validation-check__box {
-    width: 20px;
-    height: 20px;
-    margin-top: 0.1rem;
-    display: grid;
-    place-items: center;
-    border: 1.5px solid rgba(17, 19, 15, 0.35);
-    border-radius: 6px;
-    background: var(--color-surface-soft);
-}
-
-.validation-check__input:checked+.validation-check__box {
-    background: var(--color-success);
-    border-color: var(--color-success);
-}
-
-.validation-check__input:checked+.validation-check__box::before {
-    content: "✓";
-    color: white;
-    font-size: 0.78rem;
-    font-weight: 900;
-}
-
-.validation-check__input:focus-visible+.validation-check__box {
-    outline: 3px solid rgba(163, 184, 77, 0.72);
-    outline-offset: 3px;
-}
-
-.validation-check__text {
-    color: var(--color-text-soft);
-    line-height: 1.45;
-}
-
-.execution-panel {
-    display: grid;
-    gap: var(--space-4);
-    align-content: start;
-}
-
-.expected-output-card,
-.delivery-hint-card,
-.next-step-card {
-    background: rgba(255, 253, 247, 0.9);
-}
-
-.expected-output-list {
-    padding-left: 1.25rem;
-}
 
-@media (min-width: 640px) {
+/* =========================================
+   HEADER — DESKTOP APPROVED STATE.
+========================================= */
+
+@media (min-width: 900px) {
+    .app-header {
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        min-height: 72px;
+        padding: 0.9rem var(--space-5);
+        background: rgba(17, 19, 15, 0.96);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+    .app-header__brand {
+        grid-template-columns: auto auto;
+        gap: var(--space-3);
+    }
+    .app-header__mark {
+        width: 48px;
+        height: 48px;
+        font-size: var(--text-sm);
+    }
+    .app-header__brand-content {
+        display: block;
+    }
+    .app-header__eyebrow {
+        display: none;
+    }
+    .app-header__title {
+        font-size: var(--text-base);
+        font-weight: var(--weight-black);
+        letter-spacing: -0.03em;
+    }
+    .app-header__context {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: var(--space-3);
+    }
+    .app-header .context-pill {
+        display: none;
+    }
+    #reset-workflow-button {
+        display: inline-flex;
+        visibility: visible;
+        min-height: 42px;
+        padding-inline: 1rem;
+        color: var(--color-text-inverse);
+        background: transparent;
+        border: 1px solid rgba(163, 184, 77, 0.28);
+        border-radius: 12px;
+        opacity: 0.42;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    body.has-active-model #reset-workflow-button {
+        opacity: 1;
+        cursor: pointer;
+        pointer-events: auto;
+        border-color: rgba(163, 184, 77, 0.58);
+    }
+    body.has-active-model #reset-workflow-button:hover {
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateY(-1px);
+    }
+}
+
+
+/* =========================================
+   HEADER — TABLET.
+========================================= */
+
+@media (min-width: 640px) and (max-width: 899px) {
     .app-header {
         grid-template-columns: auto 1fr;
         align-items: center;
@@ -1027,322 +454,332 @@ code {
         grid-template-columns: auto auto;
         align-items: center;
     }
-    .model-selector {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .progress-overview {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-    }
-    .progress-overview__status {
-        grid-column: 1 / -1;
-    }
-    .prompt-original-card__header,
-    .validation-card__header,
-    .helper-prompt-card__header {
-        grid-template-columns: 1fr auto;
-        align-items: start;
-    }
 }
 
-@media (min-width: 900px) {
-    .dashboard {
-        padding: var(--space-5);
-        gap: var(--space-5);
-    }
-    .model-start {
-        padding: var(--space-7) 0;
-    }
-    .model-start__helper {
-        max-width: 520px;
-    }
-    .workflow-hero {
-        grid-template-columns: minmax(0, 1fr) 360px;
-        align-items: stretch;
-    }
-    .progress-overview {
-        grid-template-columns: minmax(0, 1fr) auto minmax(14rem, 0.35fr);
-    }
-    .progress-overview__status {
-        grid-column: auto;
-    }
-    .panel__header {
-        grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
-        align-items: start;
-    }
-    .prompt-detail-panel .panel__header {
-        grid-template-columns: 1fr auto;
-    }
-    .prompt-detail-panel {
-        scroll-margin-top: 210px;
-    }
-    .prompt-sequence {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+
+/* =========================================
+   DASHBOARD BASE.
+   Contenedor principal del sistema.
+========================================= */
+
+.dashboard {
+    width: min(100%, var(--container-max));
+    min-height: 100vh;
+    display: grid;
+    gap: var(--space-4);
+    margin: 0 auto;
+    padding: var(--space-4);
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 36rem), linear-gradient(180deg, #f5f2ea 0%, #ebe7db 100%);
 }
 
-@media (min-width: 1100px) {
-    .workspace-grid {
-        grid-template-columns: minmax(0, 1fr);
-        align-items: start;
-    }
-    .execution-panel {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1280px) {
-    .workspace-grid {
-        grid-template-columns: minmax(0, 1fr) 360px;
-    }
-    .execution-panel {
-        grid-template-columns: 1fr;
-    }
-    .prompt-detail-grid {
-        grid-template-columns: 1fr;
-    }
-    .prompt-sequence {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1440px) {
-    .workspace-grid {
-        grid-template-columns: minmax(0, 1fr) 400px;
-    }
-    .prompt-sequence {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-}
-
-.context-pill--delivery,
-.delivery-hint-card {
+.workflow[hidden],
+.model-start[hidden] {
     display: none;
 }
 
-@media (min-width: 900px) {
-    .progress-overview {
-        position: sticky;
-        top: 86px;
-        z-index: 15;
-    }
-}
-
-.prompt-step.is-pending {
-    background: var(--color-surface-soft);
-}
-
-.prompt-step.is-needs-review {
-    background: linear-gradient(135deg, rgba(217, 165, 32, 0.12), rgba(255, 253, 247, 0.96));
-    border-color: rgba(217, 165, 32, 0.55);
-}
-
-.prompt-step.is-validated {
-    background: linear-gradient(135deg, rgba(79, 143, 72, 0.14), rgba(255, 253, 247, 0.96));
-    border-color: rgba(79, 143, 72, 0.6);
-}
-
-.prompt-step.is-validated .prompt-step__number {
-    color: #ffffff;
-    background: var(--color-success);
-    border-color: var(--color-success);
-}
-
-.prompt-step.is-needs-review .prompt-step__number {
-    color: #5f4700;
-    background: var(--color-warning-soft);
-    border-color: rgba(217, 165, 32, 0.6);
-}
-
-.prompt-step__state--pending {
-    color: var(--color-neutral);
-    background: var(--color-neutral-soft);
-}
-
-.prompt-step__state--needs-review {
-    color: #8f6900;
-    background: var(--color-warning-soft);
-}
-
-.prompt-step__state--validated {
-    color: var(--color-success);
-    background: var(--color-success-soft);
-}
-
-.prompt-step.is-validated .prompt-step__title::after {
-    content: " ✓";
-    color: var(--color-success);
-    font-weight: 900;
-}
-
 
 /* =========================================
-   ONBOARDING STEPS.
-   Guía inicial antes de elegir modelo.
+   HOME — MODEL START.
+   Pantalla inicial de selección.
 ========================================= */
 
-.onboarding-steps {
+.model-start {
+    min-height: calc(100vh - 90px);
     display: grid;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    background: rgba(255, 253, 247, 0.88);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    gap: var(--space-5);
+    align-content: center;
+    padding: var(--space-4) 0;
 }
 
-.onboarding-steps__header {
-    display: grid;
-    gap: var(--space-2);
-    max-width: 720px;
+.model-start__header {
+    max-width: 760px;
 }
 
-.onboarding-steps__eyebrow {
+.model-start__eyebrow {
     margin: 0;
     color: var(--color-primary);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.06em;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
-.onboarding-steps__title {
-    margin: 0;
-    font-size: clamp(1.35rem, 6vw, 2rem);
-    line-height: 1;
-    letter-spacing: -0.055em;
-}
-
-.onboarding-steps__text {
-    margin: 0;
-    color: var(--color-text-soft);
-    line-height: 1.6;
-}
-
-.onboarding-steps__list {
-    display: grid;
-    gap: var(--space-3);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.onboarding-step {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-3);
-    align-items: start;
-    padding: var(--space-3);
-    background: var(--color-surface-soft);
-    border: 1px solid rgba(17, 19, 15, 0.1);
-    border-radius: var(--radius-md);
-}
-
-.onboarding-step__number {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    color: var(--color-bg);
-    background: linear-gradient(135deg, var(--color-primary-strong), var(--color-primary));
-    border-radius: var(--radius-sm);
-    font-size: 0.86rem;
-    font-weight: 950;
-    letter-spacing: -0.04em;
-}
-
-.onboarding-step__content {
-    display: grid;
-    gap: 0.35rem;
-}
-
-.onboarding-step__title {
+.model-start__title {
+    max-width: 900px;
+    margin: var(--space-2) 0 var(--space-4);
     color: var(--color-text);
-    font-weight: 900;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.5rem, 12vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.075em;
 }
 
-.onboarding-step__text {
+.model-start__text {
+    max-width: 720px;
+    margin: 0;
     color: var(--color-text-soft);
-    font-size: 0.92rem;
-    line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-    .onboarding-steps {
-        padding: var(--space-5);
-    }
-    .onboarding-steps__list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1100px) {
-    .onboarding-steps {
-        grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
-        align-items: start;
-    }
-    .onboarding-steps__list {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-    .onboarding-step {
-        grid-template-columns: 1fr;
-        align-content: start;
-        min-height: 190px;
-    }
-    .onboarding-step__number {
-        width: 48px;
-        height: 48px;
-    }
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    line-height: 1.55;
 }
 
 
 /* =========================================
-   ONBOARDING STEPS — REFINAMIENTO DESKTOP.
-   Ajuste para que se lea como secuencia.
+   HOME — MODEL SELECTOR.
 ========================================= */
+
+.model-selector {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.model-card {
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    align-content: start;
+    min-height: 420px;
+    padding: var(--space-5);
+    overflow: hidden;
+    color: var(--color-text);
+    text-align: left;
+    background: rgba(255, 253, 247, 0.76);
+    border: 1px solid rgba(17, 19, 15, 0.08);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+}
+
+.model-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at top left, var(--model-accent-soft, rgba(124, 143, 53, 0.12)), transparent 15rem), linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 253, 247, 0.92));
+    transition: opacity var(--transition-base);
+}
+
+.model-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--model-accent-border, rgba(124, 143, 53, 0.38));
+    box-shadow: 0 32px 72px var(--model-accent-shadow, rgba(0, 0, 0, 0.16)), 0 0 0 1px var(--model-accent-border, rgba(124, 143, 53, 0.28)), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.model-card:hover::before {
+    opacity: 1;
+}
+
+.model-card>* {
+    position: relative;
+    z-index: 1;
+}
+
+.model-card.is-active {
+    border-color: var(--model-accent-border, rgba(124, 143, 53, 0.42));
+    box-shadow: 0 32px 72px var(--model-accent-shadow, rgba(124, 143, 53, 0.16)), 0 0 0 1px var(--model-accent-border, rgba(124, 143, 53, 0.28));
+}
+
+.model-card.is-locked {
+    opacity: 0.5;
+}
+
+.model-card__icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    margin-bottom: var(--space-2);
+    color: var(--model-accent, var(--color-primary));
+    background: var(--model-accent-soft, var(--color-primary-soft));
+    border: 1px solid var(--model-accent-border, rgba(124, 143, 53, 0.18));
+    border-radius: 50%;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-black);
+}
+
+.model-card__content {
+    display: grid;
+    grid-template-areas: "meta" "kicker" "name" "description" "advantages" "recommended";
+    grid-template-rows: auto auto auto auto auto auto;
+    align-content: start;
+    gap: var(--space-2);
+    min-height: 100%;
+}
+
+.model-card__meta {
+    grid-area: meta;
+    width: fit-content;
+    margin: 0 0 var(--space-2);
+    padding: 0.32rem 0.65rem;
+    color: var(--color-text);
+    background: rgba(17, 19, 15, 0.055);
+    border: 1px solid rgba(17, 19, 15, 0.06);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+}
+
+.model-card__kicker {
+    grid-area: kicker;
+    color: var(--model-accent, var(--color-primary));
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.model-card__name {
+    grid-area: name;
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-weight: var(--weight-black);
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.model-card__description {
+    grid-area: description;
+    max-width: 28ch;
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-soft);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: 1.55;
+}
+
+.model-card__info {
+    display: grid;
+    gap: 0.35rem;
+    max-width: 28ch;
+    margin-top: var(--space-3);
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+}
+
+.model-card__info:nth-of-type(5) {
+    grid-area: advantages;
+}
+
+.model-card__info:nth-of-type(6) {
+    grid-area: recommended;
+}
+
+.model-card__info strong {
+    color: var(--model-accent, var(--color-primary));
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.model-card__state {
+    display: none;
+}
+
+
+/* =========================================
+   HOME — MODEL COLORS.
+========================================= */
+
+.model-card[data-model="rapido"] {
+    --model-accent: var(--model-rapido);
+    --model-accent-soft: var(--model-rapido-soft);
+    --model-accent-border: var(--model-rapido-border);
+    --model-accent-shadow: rgba(143, 166, 58, 0.14);
+}
+
+.model-card[data-model="controlado"] {
+    --model-accent: var(--model-controlado);
+    --model-accent-soft: var(--model-controlado-soft);
+    --model-accent-border: var(--model-controlado-border);
+    --model-accent-shadow: rgba(79, 143, 122, 0.14);
+}
+
+.model-card[data-model="profundo"] {
+    --model-accent: var(--model-profundo);
+    --model-accent-soft: var(--model-profundo-soft);
+    --model-accent-border: var(--model-profundo-border);
+    --model-accent-shadow: rgba(122, 107, 176, 0.14);
+}
+
+
+/* =========================================
+   HOME — GUIDE.
+========================================= */
+
+.home-guide {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.home-guide__intro {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.home-guide__eyebrow {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.home-simple-title {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: var(--weight-black);
+    line-height: 0.96;
+    letter-spacing: -0.065em;
+}
 
 .onboarding-steps {
     display: grid;
     gap: var(--space-5);
-    padding: var(--space-4);
-    background: rgba(255, 253, 247, 0.92);
-    border: 1px solid var(--color-border);
+    padding: var(--space-5);
+    background: rgba(255, 253, 247, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.72);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(18px);
 }
 
 .onboarding-steps__header {
     display: grid;
     gap: var(--space-2);
     max-width: 760px;
+    margin-bottom: var(--space-5);
 }
 
 .onboarding-steps__eyebrow {
-    margin: 0;
-    color: var(--color-primary);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    display: none;
 }
 
 .onboarding-steps__title {
     margin: 0;
-    font-size: clamp(1.5rem, 5vw, 2.4rem);
-    line-height: 0.98;
-    letter-spacing: -0.055em;
     color: var(--color-text);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: var(--weight-black);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
 }
 
 .onboarding-steps__text {
+    max-width: 46ch;
     margin: 0;
-    max-width: 68ch;
     color: var(--color-text-soft);
-    line-height: 1.6;
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    line-height: 1.55;
 }
 
 .onboarding-steps__list {
+    position: relative;
     display: grid;
     gap: var(--space-3);
     margin: 0;
@@ -1352,57 +789,193 @@ code {
 
 .onboarding-step {
     position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: auto 1fr;
+    justify-items: center;
+    align-content: center;
     gap: var(--space-3);
-    align-items: start;
-    padding: var(--space-3);
-    background: var(--color-surface-soft);
+    min-height: 190px;
+    padding: var(--space-4);
+    overflow: visible;
+    text-align: center;
+    background: rgba(255, 253, 247, 0.72);
     border: 1px solid rgba(17, 19, 15, 0.1);
     border-radius: var(--radius-md);
-    min-height: 100%;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+}
+
+.onboarding-step:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 253, 247, 0.96);
+    border-color: rgba(124, 143, 53, 0.34);
+    box-shadow: 0 22px 42px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.82);
 }
 
 .onboarding-step__number {
-    width: 46px;
-    height: 46px;
+    width: 54px;
+    height: 54px;
     display: grid;
     place-items: center;
+    margin-bottom: var(--space-2);
     color: var(--color-neutral-soft);
     background: linear-gradient(135deg, var(--color-primary-strong), var(--color-primary));
-    border-radius: 14px;
-    font-size: 0.9rem;
-    font-weight: 950;
-    letter-spacing: -0.04em;
+    border-radius: 16px;
+    font-size: var(--text-base);
+    font-weight: var(--weight-black);
     line-height: 1;
-    flex: 0 0 auto;
+    letter-spacing: -0.04em;
 }
 
 .onboarding-step__content {
     display: grid;
-    gap: 0.45rem;
+    justify-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
 }
 
 .onboarding-step__title {
+    max-width: 14ch;
     color: var(--color-text);
-    font-size: 1rem;
-    font-weight: 900;
-    line-height: 1.08;
+    font-size: var(--text-base);
+    font-weight: var(--weight-black);
+    line-height: 1.15;
     letter-spacing: -0.03em;
+    text-align: center;
 }
 
 .onboarding-step__text {
+    max-width: 18ch;
+    margin: 0 auto;
     color: var(--color-text-soft);
-    font-size: 0.94rem;
-    line-height: 1.55;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    line-height: 1.5;
+    text-align: center;
 }
 
 
-/* TABLET. */
+/* =========================================
+   HOME — FOOTER.
+========================================= */
 
-@media (min-width: 768px) {
+.home-footer {
+    padding: var(--space-8) var(--space-2) var(--space-6);
+    text-align: center;
+}
+
+.home-footer__text {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+}
+
+.home-footer__link {
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(17, 19, 15, 0.2);
+    transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.home-footer__link:hover,
+.home-footer__link:focus-visible {
+    color: var(--color-primary);
+    border-bottom-color: rgba(124, 143, 53, 0.6);
+}
+
+
+/* =========================================
+   HOME — DESKTOP APPROVED STATE.
+========================================= */
+
+@media (min-width: 900px) {
+    .dashboard {
+        width: 100%;
+        max-width: none;
+        gap: var(--space-5);
+        padding: 0;
+        background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.92), transparent 34rem), linear-gradient(180deg, #f5f2ea 0%, #ebe7db 100%);
+    }
+    .model-start {
+        min-height: auto;
+        align-content: start;
+        gap: clamp(3.5rem, 5vw, 5.5rem);
+        padding: clamp(5.5rem, 8vw, 7.5rem) var(--space-5) var(--space-7);
+    }
+    .model-start__header {
+        max-width: 980px;
+        margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+        padding-top: var(--space-2);
+    }
+    .model-start__eyebrow {
+        margin-bottom: var(--space-2);
+    }
+    .model-start__title {
+        margin: 0 0 var(--space-4);
+        font-size: clamp(4rem, 7vw, 6rem);
+        line-height: 0.86;
+        letter-spacing: -0.085em;
+    }
+    .model-start__text {
+        max-width: 680px;
+        line-height: 1.55;
+    }
+    .model-selector {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+        align-items: stretch;
+        margin-top: 0;
+        margin-bottom: clamp(5rem, 8vw, 7rem);
+    }
+    .model-card {
+        min-height: 460px;
+        border-radius: var(--radius-lg);
+    }
+    .home-guide {
+        gap: clamp(1.75rem, 3vw, 2.75rem);
+        margin-top: 0;
+    }
+    .home-simple-title {
+        margin-bottom: 0;
+    }
     .onboarding-steps {
-        padding: var(--space-5);
+        margin-top: 0;
+        border-radius: var(--radius-lg);
+    }
+    .onboarding-steps__list {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+        gap: var(--space-3);
+    }
+    .onboarding-step {
+        min-height: 230px;
+    }
+    .onboarding-step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        width: var(--space-3);
+        height: 2px;
+        background: rgba(124, 143, 53, 0.28);
+        transform: translateY(-50%);
+        z-index: 0;
+        pointer-events: none;
+    }
+}
+
+
+/* =========================================
+   HOME — TABLET.
+========================================= */
+
+@media (min-width: 768px) and (max-width: 899px) {
+    .model-selector {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .onboarding-steps__list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1410,175 +983,143 @@ code {
 }
 
 
-/* DESKTOP GRANDE. */
+/* =========================================
+   WORKFLOW — BASE.
+   Estructura general del flujo activo.
+========================================= */
 
-@media (min-width: 1200px) {
-    .onboarding-steps {
-        gap: var(--space-6);
-        padding: var(--space-5);
-    }
-    .onboarding-steps__header {
-        max-width: 880px;
-    }
-    .onboarding-steps__list {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        align-items: stretch;
-        gap: var(--space-4);
-    }
-    .onboarding-step {
-        grid-template-columns: 1fr;
-        align-content: start;
-        gap: var(--space-4);
-        padding: var(--space-4);
-        min-height: 240px;
-    }
-    .onboarding-step__number {
-        width: 52px;
-        height: 52px;
-        border-radius: 16px;
-        font-size: 1rem;
-    }
-    .onboarding-step__title {
-        font-size: 1.02rem;
-    }
-    .onboarding-step__text {
-        font-size: 0.95rem;
-    }
-    .onboarding-step:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        top: 38px;
-        right: -18px;
-        width: 20px;
-        height: 2px;
-        background: rgba(124, 143, 53, 0.28);
-    }
+.workflow {
+    display: grid;
+    gap: var(--space-4);
 }
 
+.workflow[hidden] {
+    display: none;
+}
 
-/* DESKTOP MUY ANCHO. */
+body.has-active-model .dashboard {
+    width: min(100%, var(--container-max));
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding: var(--space-5);
+    gap: var(--space-5);
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.9), transparent 36rem), linear-gradient(180deg, #f5f2ea 0%, #ebe7db 100%);
+}
 
-@media (min-width: 1440px) {
-    .onboarding-steps {
-        padding: var(--space-6);
-    }
-    .onboarding-steps__header {
-        max-width: 960px;
-    }
-    .onboarding-steps__list {
-        gap: var(--space-5);
-    }
-    .onboarding-step {
-        min-height: 255px;
-    }
-    .onboarding-step:not(:last-child)::after {
-        right: -22px;
-        width: 26px;
-    }
+body.has-active-model #workflow {
+    display: grid;
+    gap: var(--space-5);
+    padding-top: var(--space-3);
 }
 
 
 /* =========================================
-   ONBOARDING STEPS — FIX DE DISTRIBUCIÓN.
-   Evita choque entre texto inicial y pasos.
+   WORKFLOW — HERO.
+   Encabezado del modelo activo.
 ========================================= */
 
-@media (min-width: 1100px) {
-    .onboarding-steps {
-        grid-template-columns: 1fr;
-        gap: var(--space-5);
-    }
-    .onboarding-steps__header {
-        max-width: 760px;
-    }
-    .onboarding-steps__list {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: var(--space-3);
-    }
-    .onboarding-step {
-        grid-template-columns: 1fr;
-        min-height: 210px;
-    }
+.workflow-hero {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    color: var(--color-text-inverse);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)), var(--color-bg);
+    border: 1px solid var(--color-border-inverse);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-dark);
 }
 
-
-/* =========================================
-   BREADCRUMB BAR — VERSIÓN OPERATIVA.
-   Estado compacto sticky bajo navbar.
-========================================= */
-
-.breadcrumb-bar {
-    position: sticky;
-    top: 82px;
-    z-index: 14;
-    padding: 0.55rem 0.85rem;
-    background: rgba(247, 244, 236, 0.88);
-    border: 1px solid rgba(17, 19, 15, 0.08);
-    border-radius: 999px;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(16px);
-}
-
-.breadcrumb-bar__list {
-    min-width: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    align-items: center;
-}
-
-.breadcrumb-bar__item {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-}
-
-.breadcrumb-bar__item:not(:last-child)::after {
-    content: "/";
-    margin-left: 0.35rem;
-    color: var(--color-text-muted);
-    font-weight: 800;
-    opacity: 0.55;
-}
-
-.breadcrumb-bar__label {
-    color: var(--color-text-muted);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.05em;
+.workflow-hero__eyebrow {
+    margin: 0;
+    color: var(--active-model-accent, var(--color-primary));
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
-.breadcrumb-bar__value {
-    color: var(--color-text);
-    font-size: 0.9rem;
-    font-weight: 900;
-    letter-spacing: -0.02em;
+.workflow-hero__title {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: clamp(2rem, 9vw, 4rem);
+    line-height: 0.96;
+    letter-spacing: -0.075em;
 }
 
-@media (max-width: 899px) {
-    .breadcrumb-bar {
-        position: static;
-        border-radius: var(--radius-md);
-    }
-    .breadcrumb-bar__list {
-        display: grid;
-        gap: var(--space-2);
-    }
-    .breadcrumb-bar__item:not(:last-child)::after {
-        content: "";
-        display: none;
-    }
+.workflow-hero__text {
+    max-width: 760px;
+    margin: 0;
+    color: var(--color-text-inverse-soft);
+    font-size: var(--text-base);
+    line-height: 1.65;
+}
+
+.summary-card {
+    padding: var(--space-4);
+    color: var(--color-text);
+    background: rgba(255, 253, 247, 0.92);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.summary-card__label {
+    margin: 0;
+    color: var(--active-model-accent, var(--color-primary));
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.summary-card__title {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.03em;
+}
+
+.summary-card__text {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-base);
+    line-height: 1.6;
 }
 
 
 /* =========================================
-   WORKFLOW STATUS BAR.
-   Modelo activo + progreso + estado general.
+   WORKFLOW — MODEL COLORS.
+   Color activo según modelo seleccionado.
+========================================= */
+
+body.model-rapido {
+    --active-model-accent: var(--model-rapido);
+    --active-model-accent-soft: var(--model-rapido-soft);
+    --active-model-accent-border: var(--model-rapido-border);
+    --active-model-accent-shadow: rgba(143, 166, 58, 0.16);
+}
+
+body.model-controlado {
+    --active-model-accent: var(--model-controlado);
+    --active-model-accent-soft: var(--model-controlado-soft);
+    --active-model-accent-border: var(--model-controlado-border);
+    --active-model-accent-shadow: rgba(79, 143, 122, 0.16);
+}
+
+body.model-profundo {
+    --active-model-accent: var(--model-profundo);
+    --active-model-accent-soft: var(--model-profundo-soft);
+    --active-model-accent-border: var(--model-profundo-border);
+    --active-model-accent-shadow: rgba(122, 107, 176, 0.16);
+}
+
+body.has-active-model .workflow-hero {
+    border-color: var(--active-model-accent-border);
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.24), 0 0 0 1px var(--active-model-accent-border);
+}
+
+
+/* =========================================
+   WORKFLOW — STATUS BAR.
+   Progreso sticky del modelo activo.
 ========================================= */
 
 .workflow-status {
@@ -1607,35 +1148,37 @@ code {
     height: 28px;
     display: grid;
     place-items: center;
-    color: var(--color-primary);
-    background: rgba(124, 143, 53, 0.12);
-    border: 1px solid rgba(124, 143, 53, 0.2);
+    color: var(--active-model-accent, var(--color-primary));
+    background: var(--active-model-accent-soft, rgba(124, 143, 53, 0.12));
+    border: 1px solid var(--active-model-accent-border, rgba(124, 143, 53, 0.2));
     border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 950;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-black);
 }
 
 .workflow-status__content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    align-items: baseline;
+    display: grid;
+    gap: 0.18rem;
+    align-items: center;
 }
 
 .workflow-status__label {
     display: block;
     margin: 0;
     color: var(--color-text-soft);
-    font-size: 0.76rem;
-    font-weight: 850;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    line-height: 1;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
 .workflow-status__value {
+    display: block;
     color: var(--color-text);
-    font-size: 0.95rem;
-    font-weight: 950;
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    line-height: 1.1;
     letter-spacing: -0.03em;
 }
 
@@ -1647,15 +1190,16 @@ code {
 .workflow-status__title {
     margin: 0.25rem 0 0;
     color: var(--color-text);
-    font-size: clamp(1rem, 3vw, 1.35rem);
-    line-height: 1.15;
-    letter-spacing: -0.045em;
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
 }
 
 .workflow-status__percentage {
     color: var(--color-text);
-    font-size: 1.5rem;
-    font-weight: 950;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
     line-height: 1;
     letter-spacing: -0.06em;
 }
@@ -1672,1370 +1216,145 @@ code {
     background: rgba(17, 19, 15, 0.1);
 }
 
-.workflow-status .progress-bar__fill {
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-strong));
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    overflow: hidden;
+    background: rgba(17, 19, 15, 0.11);
+    border-radius: 999px;
 }
 
-.workflow-status .status-badge {
-    padding: 0.42rem 0.68rem;
-    font-size: 0.78rem;
+.progress-bar__fill {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient( 90deg, var(--active-model-accent, var(--color-primary)), color-mix(in srgb, var(--active-model-accent, var(--color-primary)) 72%, white));
+    border-radius: inherit;
+    transition: width 220ms ease;
 }
 
 
 /* =========================================
-   WORKFLOW STEPPER.
-   Breadcrumb operativo por prompts.
+   WORKFLOW — STATUS BADGES.
 ========================================= */
 
-.workflow-stepper {
-    padding: var(--space-3);
+.status-badge {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+}
+
+.status-badge::before {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-badge--pending {
+    color: var(--color-neutral);
+    background: var(--color-neutral-soft);
+}
+
+.status-badge--review,
+.status-badge--needs-review {
+    color: #8f6900;
+    background: var(--color-warning-soft);
+}
+
+.status-badge--validated,
+.status-badge--success {
+    color: var(--color-success);
+    background: var(--color-success-soft);
+}
+
+
+/* =========================================
+   WORKFLOW — WORKSPACE LAYOUT.
+========================================= */
+
+.workspace-grid {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.workspace-grid__content {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+}
+
+.panel {
+    padding: var(--space-4);
     background: rgba(255, 253, 247, 0.92);
-    border: 1px solid rgba(17, 19, 15, 0.08);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     backdrop-filter: blur(18px);
 }
 
-.workflow-stepper__list {
-    display: flex;
+.panel__header {
+    display: grid;
     gap: var(--space-2);
-    overflow-x: auto;
-    padding-bottom: 0.15rem;
+    margin-bottom: var(--space-4);
 }
 
-.workflow-stepper__item {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    min-height: 40px;
-    padding: 0.55rem 0.75rem;
-    color: var(--color-text-soft);
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 850;
-    white-space: nowrap;
-    transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+.panel__eyebrow {
+    margin: 0;
+    color: var(--active-model-accent, var(--color-primary));
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
-.workflow-stepper__item:hover:not(:disabled) {
+.panel__title {
+    margin: var(--space-1) 0 0;
     color: var(--color-text);
-    border-color: rgba(124, 143, 53, 0.5);
-    transform: translateY(-1px);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
 }
 
-.workflow-stepper__item.is-selected {
-    color: var(--color-bg);
-    background: var(--color-primary-strong);
-    border-color: var(--color-primary);
-}
-
-.workflow-stepper__item.is-validated {
-    color: var(--color-success);
-    background: var(--color-success-soft);
-    border-color: rgba(79, 143, 72, 0.4);
-}
-
-.workflow-stepper__item.is-needs-review {
-    color: #8f6900;
-    background: var(--color-warning-soft);
-    border-color: rgba(217, 165, 32, 0.45);
-}
-
-.workflow-stepper__item.is-selected.is-validated,
-.workflow-stepper__item.is-selected.is-needs-review {
-    color: var(--color-bg);
-    background: var(--color-primary-strong);
-    border-color: var(--color-primary);
-}
-
-.workflow-stepper__item.is-placeholder {
-    opacity: 0.7;
-}
-
-.workflow-stepper__number {
-    font-weight: 950;
-}
-
-.workflow-stepper__label {
-    max-width: 13rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.panel__text {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    line-height: 1.6;
 }
 
 
 /* =========================================
-   WORKFLOW STATUS + STEPPER DESKTOP.
+   WORKFLOW — DESKTOP APPROVED LAYOUT.
 ========================================= */
 
 @media (min-width: 900px) {
-    .workflow-status {
+    body.has-active-model .workflow-status {
         position: sticky;
-        top: 10px;
-        z-index: 14;
-        grid-template-columns: minmax(180px, 0.25fr) minmax(320px, 1fr) minmax(160px, 0.22fr);
+        top: 0;
+        z-index: 40;
+        grid-template-columns: minmax(170px, 0.22fr) minmax(360px, 1fr) minmax(160px, 0.2fr);
         align-items: center;
         gap: var(--space-4);
+        margin-top: 0;
         padding: var(--space-3) var(--space-4);
+        border-color: var(--active-model-accent-border, rgba(17, 19, 15, 0.08));
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72);
     }
     .workflow-status__progress-header {
         grid-template-columns: minmax(0, 1fr) auto;
         align-items: end;
-    }
-    .workflow-status__item--state {
-        justify-self: end;
-    }
-    .workflow-stepper {
-        position: sticky;
-        top: 178px;
-        z-index: 13;
-        padding: var(--space-2) var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .workflow-stepper__list {
-        gap: 0.45rem;
-    }
-    .workflow-stepper__item {
-        min-height: 34px;
-        padding: 0.45rem 0.65rem;
-        font-size: 0.78rem;
-    }
-}
-
-
-/* =========================================
-   WORKFLOW STATUS MOBILE.
-========================================= */
-
-@media (max-width: 899px) {
-    .workflow-status__item--progress {
-        padding-top: var(--space-2);
-        border-top: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .workflow-status__item--state {
-        padding-top: var(--space-2);
-        border-top: 1px solid rgba(17, 19, 15, 0.08);
-    }
-}
-
-
-/* =========================================
-   WORKFLOW STEPPER — REFINAMIENTO APROBADO.
-   Minimalista, simple y con hint de scroll.
-========================================= */
-
-
-/* Oculta de verdad el breadcrumb antiguo dentro del stepper. */
-
-.workflow-stepper .breadcrumb-bar__list[hidden] {
-    display: none !important;
-}
-
-.workflow-stepper {
-    position: relative;
-    padding: var(--space-3);
-    background: rgba(255, 253, 247, 0.92);
-    border: 1px solid rgba(17, 19, 15, 0.08);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(18px);
-    overflow: hidden;
-}
-
-.workflow-stepper__list {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 0.15rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.workflow-stepper__list::-webkit-scrollbar {
-    display: none;
-}
-
-.workflow-stepper__item {
-    position: relative;
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    min-height: 42px;
-    padding: 0.5rem 1rem 0.5rem 0.7rem;
-    color: var(--color-text);
-    background: transparent;
-    border: 1px solid rgba(17, 19, 15, 0.14);
-    border-radius: 999px;
-    font-size: 0.86rem;
-    font-weight: 850;
-    white-space: nowrap;
-    transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
-}
-
-.workflow-stepper__item:hover:not(:disabled) {
-    border-color: rgba(124, 143, 53, 0.55);
-    transform: translateY(-1px);
-}
-
-.workflow-stepper__item.is-placeholder {
-    opacity: 0.7;
-}
-
-.workflow-stepper__item::after {
-    content: "›";
-    margin-left: 0.5rem;
-    color: rgba(17, 19, 15, 0.28);
-    font-size: 1rem;
-    font-weight: 900;
-    line-height: 1;
-}
-
-.workflow-stepper__item:last-child::after {
-    display: none;
-}
-
-.workflow-stepper__number {
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    flex: 0 0 auto;
-    color: var(--color-text-muted);
-    background: rgba(17, 19, 15, 0.05);
-    border-radius: 999px;
-    font-size: 0.76rem;
-    font-weight: 900;
-    line-height: 1;
-}
-
-.workflow-stepper__label {
-    display: inline-block;
-    max-width: 9rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: inherit;
-    font-weight: 850;
-    letter-spacing: -0.02em;
-}
-
-.workflow-stepper__item.is-selected {
-    color: var(--color-bg);
-    background: rgba(163, 184, 77, 0.95);
-    border-color: rgba(124, 143, 53, 0.95);
-}
-
-.workflow-stepper__item.is-selected .workflow-stepper__number {
-    color: #ffffff;
-    background: rgba(124, 143, 53, 0.95);
-}
-
-.workflow-stepper__item.is-validated {
-    border-color: rgba(79, 143, 72, 0.28);
-}
-
-.workflow-stepper__item.is-validated .workflow-stepper__number {
-    color: #ffffff;
-    background: var(--color-success);
-}
-
-.workflow-stepper__item.is-needs-review {
-    border-color: rgba(217, 165, 32, 0.34);
-}
-
-.workflow-stepper__item.is-needs-review .workflow-stepper__number {
-    color: #6b5200;
-    background: var(--color-warning-soft);
-}
-
-.workflow-stepper__item.is-selected.is-validated,
-.workflow-stepper__item.is-selected.is-needs-review {
-    color: var(--color-bg);
-    background: rgba(163, 184, 77, 0.95);
-    border-color: rgba(124, 143, 53, 0.95);
-}
-
-.workflow-stepper__item.is-selected.is-validated .workflow-stepper__number,
-.workflow-stepper__item.is-selected.is-needs-review .workflow-stepper__number {
-    color: #ffffff;
-    background: rgba(124, 143, 53, 0.95);
-}
-
-
-/* Distribución elegante cuando el modelo cabe en una fila. */
-
-@media (min-width: 900px) {
-    .workflow-stepper {
-        position: sticky;
-        top: 110px;
-        z-index: 13;
-        padding: var(--space-2) var(--space-3);
-        border-radius: var(--radius-md);
-        box-shadow: var(--shadow-md);
-    }
-    .workflow-stepper:not(.has-scroll-hint) .workflow-stepper__list {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns: max-content;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        gap: 0.5rem;
-        overflow: visible;
-    }
-    .workflow-stepper.has-scroll-hint .workflow-stepper__list {
-        display: flex;
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-right: 2.5rem;
-    }
-    .workflow-stepper.has-scroll-hint::after {
-        content: "›";
-        position: absolute;
-        top: 50%;
-        right: 0.9rem;
-        transform: translateY(-50%);
-        width: 28px;
-        height: 28px;
-        display: grid;
-        place-items: center;
-        color: rgba(17, 19, 15, 0.48);
-        background: rgba(255, 253, 247, 0.92);
-        border: 1px solid rgba(17, 19, 15, 0.08);
-        border-radius: 999px;
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
-        pointer-events: none;
-    }
-    .workflow-stepper.has-scroll-hint::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 72px;
-        height: 100%;
-        background: linear-gradient(90deg, rgba(255, 253, 247, 0), rgba(255, 253, 247, 0.96) 58%);
-        pointer-events: none;
-    }
-    .workflow-stepper__item {
-        min-height: 36px;
-        padding: 0.42rem 0.8rem 0.42rem 0.58rem;
-        font-size: 0.8rem;
-    }
-    .workflow-stepper__number {
-        width: 28px;
-        height: 28px;
-        font-size: 0.74rem;
-    }
-    .workflow-stepper__label {
-        max-width: 7.5rem;
-    }
-}
-
-
-/* =========================================
-   WORKSPACE — LAYOUT BASE DESKTOP.
-   Prompts laterales + área operativa.
-========================================= */
-
-@media (min-width: 900px) {
-    .workspace-grid {
-        display: grid;
-        grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
-        gap: var(--space-4);
-        align-items: start;
-    }
-    .workspace-grid__content {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-4);
-        min-width: 0;
-    }
-    .prompt-sequence-panel {
-        position: sticky;
-        top: 260px;
-        align-self: start;
-        max-height: calc(100vh - 285px);
-        overflow: auto;
-    }
-    .prompt-sequence-panel .panel__header {
-        grid-template-columns: 1fr;
-        gap: var(--space-2);
-        margin-bottom: var(--space-3);
-    }
-    .prompt-sequence {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--space-2);
-    }
-    .prompt-detail-panel {
-        min-width: 0;
-    }
-}
-
-@media (min-width: 1280px) {
-    .workspace-grid {
-        grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
-    }
-    .workspace-grid__content {
-        grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
-        align-items: start;
-    }
-    .execution-panel {
-        position: sticky;
-        top: 260px;
-        align-self: start;
-        max-height: calc(100vh - 285px);
-        overflow: auto;
-    }
-}
-
-
-/* =========================================
-   WORKSPACE — REFINAMIENTO VISUAL 01.
-   Sidebar compacta + detalle dominante.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-sequence-panel {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .prompt-sequence-panel::-webkit-scrollbar,
-    .execution-panel::-webkit-scrollbar {
-        width: 6px;
-    }
-    .prompt-sequence-panel::-webkit-scrollbar-track,
-    .execution-panel::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .prompt-sequence-panel::-webkit-scrollbar-thumb,
-    .execution-panel::-webkit-scrollbar-thumb {
-        background: rgba(17, 19, 15, 0.18);
-        border-radius: 999px;
-    }
-    .prompt-sequence-panel .panel__header {
-        margin-bottom: var(--space-3);
-    }
-    .prompt-sequence-panel .panel__title {
-        font-size: 1rem;
-    }
-    .prompt-sequence-panel .panel__text {
-        font-size: 0.82rem;
-        line-height: 1.45;
-    }
-    .prompt-step {
-        grid-template-columns: auto minmax(0, 1fr);
-        gap: var(--space-2);
-        padding: var(--space-2);
-        border-radius: var(--radius-sm);
-    }
-    .prompt-step__number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.72rem;
-    }
-    .prompt-step__title {
-        font-size: 0.86rem;
-        line-height: 1.15;
-    }
-    .prompt-step__description {
-        display: -webkit-box;
-        overflow: hidden;
-        font-size: 0.76rem;
-        line-height: 1.35;
-    }
-    .prompt-step__state {
-        grid-column: 2;
-        width: fit-content;
-        max-width: 100%;
-        margin-top: 0.15rem;
-        padding: 0.26rem 0.5rem;
-        font-size: 0.68rem;
-        line-height: 1.1;
-    }
-    .prompt-detail-panel {
-        padding: var(--space-4);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-sm);
-    }
-    .prompt-detail-panel .panel__header {
-        gap: var(--space-4);
-        padding-bottom: var(--space-3);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .prompt-detail-panel .panel__title {
-        font-size: 1.15rem;
-    }
-    .prompt-status-control__select {
-        min-width: 170px;
-    }
-    .prompt-tabs {
-        gap: var(--space-3);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.1);
-    }
-    .prompt-tabs__button {
-        padding: 0.65rem 0;
-        color: var(--color-text-muted);
-        font-size: 0.8rem;
-    }
-    .prompt-tabs__button.is-active {
-        color: var(--color-text);
-        border-bottom-color: var(--color-primary);
-    }
-    .detail-card,
-    .prompt-original-card,
-    .validation-card,
-    .helper-prompt-card {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .detail-toggle {
-        padding: var(--space-3) 0;
-    }
-    .detail-toggle__summary {
-        font-size: 0.88rem;
-    }
-    .detail-card__text,
-    .detail-card__list,
-    .expected-output-list,
-    .delivery-hint-card__text,
-    .next-step-card__text {
-        font-size: 0.86rem;
-    }
-    .execution-panel .panel {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .execution-panel .panel__header {
-        grid-template-columns: 1fr;
-        margin-bottom: var(--space-3);
-    }
-    .execution-panel .panel__title {
-        font-size: 1rem;
-        line-height: 1.15;
-    }
-}
-
-@media (min-width: 1280px) {
-    .workspace-grid__content {
-        grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
-    }
-}
-
-@media (min-width: 1440px) {
-    .workspace-grid {
-        grid-template-columns: minmax(270px, 300px) minmax(0, 1fr);
-    }
-    .workspace-grid__content {
-        grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
-    }
-}
-
-
-/* =========================================
-   WORKSPACE — OVERRIDE FINAL.
-   2 columnas reales + panel secundario debajo.
-========================================= */
-
-@media (min-width: 900px) {
-    .workspace-grid {
-        display: grid;
-        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
-        gap: var(--space-3);
-        align-items: start;
-    }
-    .workspace-grid__content {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) !important;
-        gap: var(--space-3);
-        min-width: 0;
-    }
-    .prompt-sequence-panel {
-        position: sticky;
-        top: 1rem;
-        align-self: start;
-        max-height: calc(100vh - 2rem);
-        overflow: auto;
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .prompt-sequence-panel .panel__header {
-        grid-template-columns: 1fr;
-        gap: var(--space-2);
-        margin-bottom: var(--space-3);
-    }
-    .prompt-sequence-panel .panel__title {
-        font-size: 1rem;
-    }
-    .prompt-sequence-panel .panel__text {
-        font-size: 0.82rem;
-        line-height: 1.45;
-    }
-    .prompt-sequence {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: var(--space-2);
-    }
-    .prompt-step {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        gap: 0.7rem;
-        padding: 0.9rem;
-        border-radius: var(--radius-sm);
-        align-items: start;
-    }
-    .prompt-step__number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.72rem;
-    }
-    .prompt-step__content {
-        display: grid;
-        gap: 0.2rem;
-        min-width: 0;
-    }
-    .prompt-step__title {
-        font-size: 0.88rem;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-    }
-    .prompt-step__description {
-        display: -webkit-box;
-        overflow: hidden;
-        color: var(--color-text-soft);
-        font-size: 0.76rem;
-        line-height: 1.3;
-    }
-    .prompt-step__state {
-        grid-column: 2;
-        width: fit-content;
-        margin-top: 0.15rem;
-        padding: 0.22rem 0.45rem;
-        font-size: 0.66rem;
-        line-height: 1.1;
-        border-radius: 999px;
-    }
-    .prompt-detail-panel {
-        min-width: 0;
-        padding: var(--space-4);
-        border-radius: var(--radius-lg);
-    }
-    .prompt-detail-panel .panel__header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: var(--space-3);
-        align-items: start;
-        padding-bottom: var(--space-3);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .prompt-detail-panel .panel__title {
-        font-size: 1.15rem;
-    }
-    .prompt-status-control__select {
-        min-width: 170px;
-    }
-    .prompt-tabs {
-        gap: var(--space-3);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .prompt-tabs__button {
-        padding: 0.65rem 0;
-        font-size: 0.8rem;
-    }
-    .detail-card,
-    .prompt-original-card,
-    .validation-card,
-    .helper-prompt-card {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .execution-panel {
-        position: static !important;
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-3);
-        max-height: none !important;
-        overflow: visible !important;
-        align-items: stretch;
-    }
-    .execution-panel .panel {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-        min-height: 100%;
-    }
-    .execution-panel .panel__header {
-        grid-template-columns: 1fr;
-        margin-bottom: var(--space-2);
-    }
-    .execution-panel .panel__title {
-        font-size: 1rem;
-        line-height: 1.15;
-    }
-    .expected-output-list,
-    .next-step-card__text,
-    .delivery-hint-card__text {
-        font-size: 0.86rem;
-        line-height: 1.55;
-    }
-}
-
-@media (min-width: 1280px) {
-    .workspace-grid {
-        grid-template-columns: minmax(250px, 280px) minmax(0, 1fr);
-        gap: var(--space-4);
-    }
-    .workspace-grid__content {
-        grid-template-columns: minmax(0, 1fr) !important;
-    }
-    .execution-panel {
-        grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-    }
-}
-
-@media (min-width: 1440px) {
-    .workspace-grid {
-        grid-template-columns: minmax(260px, 290px) minmax(0, 1fr);
-    }
-    .execution-panel {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 899px) {
-    .workspace-grid__content {
-        display: grid;
-        gap: var(--space-4);
-    }
-    .execution-panel {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--space-3);
-    }
-}
-
-
-/* =========================================
-   WORKSPACE DESKTOP — VISTA APROBADA.
-   Sidebar + workspace operativo real.
-========================================= */
-
-@media (min-width: 900px) {
-    .workspace-grid {
-        display: grid;
-        grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
-        gap: var(--space-3);
-        align-items: start;
-    }
-    .workspace-grid__content {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-3);
-        min-width: 0;
-    }
-    .prompt-sequence-panel {
-        position: sticky;
-        top: 1rem;
-        align-self: start;
-        max-height: calc(100vh - 2rem);
-        overflow: auto;
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .prompt-sequence {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: var(--space-2);
-    }
-    .prompt-step {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        gap: 0.75rem;
-        align-items: center;
-        min-height: 68px;
-        padding: 0.85rem;
-        border-radius: var(--radius-sm);
-    }
-    .prompt-step__number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.72rem;
-    }
-    .prompt-step__description {
-        display: block;
-        overflow: hidden;
-        font-size: 0.74rem;
-        line-height: 1.3;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    .prompt-step__state {
-        grid-column: auto;
-        align-self: center;
-        max-width: 5.5rem;
-        padding: 0.28rem 0.5rem;
-        font-size: 0.66rem;
-        line-height: 1.1;
-        text-align: center;
-    }
-    .prompt-detail-panel {
-        padding: var(--space-4);
-        border-radius: var(--radius-lg);
-    }
-    .prompt-detail-panel .panel__header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: var(--space-5);
-        align-items: start;
-        padding-bottom: var(--space-4);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .prompt-detail-panel .panel__title {
-        font-size: 1.35rem;
-        line-height: 1.1;
-    }
-    .prompt-tabs {
-        gap: var(--space-4);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.1);
-    }
-    .prompt-tabs__button {
-        padding: 0.75rem 0;
-        color: var(--color-text-muted);
-        font-size: 0.82rem;
-    }
-    .prompt-tabs__button.is-active {
-        color: var(--color-primary);
-        border-bottom-color: var(--color-primary);
-    }
-    .prompt-detail-grid {
-        display: grid;
-        grid-template-columns: minmax(260px, 0.78fr) minmax(360px, 1fr);
-        gap: var(--space-4);
-        align-items: start;
-    }
-    .detail-card {
-        display: grid;
-        gap: 0;
-        padding: 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-    }
-    .detail-card__intro,
-    .detail-toggle {
-        position: relative;
-        padding: var(--space-3) 0 var(--space-3) 2.15rem;
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .detail-card__intro::before,
-    .detail-toggle::before {
-        position: absolute;
-        top: var(--space-3);
-        left: 0;
-        width: 24px;
-        height: 24px;
-        display: grid;
-        place-items: center;
-        color: var(--color-primary);
-        background: rgba(124, 143, 53, 0.1);
-        border: 1px solid rgba(124, 143, 53, 0.18);
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 950;
-    }
-    .detail-card__intro::before {
-        content: "◎";
-    }
-    .detail-toggle:nth-of-type(1)::before {
-        content: "♙";
-    }
-    .detail-toggle:nth-of-type(2)::before {
-        content: "✓";
-    }
-    .detail-toggle:nth-of-type(3)::before {
-        content: "!";
-        color: #b97800;
-        background: var(--color-warning-soft);
-        border-color: rgba(217, 165, 32, 0.35);
-    }
-    .detail-card__title,
-    .detail-toggle__summary {
-        font-size: 0.92rem;
-        font-weight: 900;
-        line-height: 1.2;
-    }
-    .detail-card__text,
-    .detail-card__list {
-        font-size: 0.8rem;
-        line-height: 1.55;
-    }
-    .detail-toggle__summary::after {
-        display: none;
-    }
-    .detail-toggle[open] .detail-toggle__content,
-    .detail-toggle__content {
-        padding-top: var(--space-2);
-    }
-    .prompt-original-card {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-        background: var(--color-surface-soft);
-    }
-    .prompt-original-card__header {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-        gap: var(--space-3);
-    }
-    .prompt-code {
-        max-height: 260px;
-        padding: var(--space-3);
-        color: var(--color-text);
-        background: rgba(124, 143, 53, 0.045);
-        border: 1px solid rgba(124, 143, 53, 0.22);
-        font-size: 0.8rem;
-        line-height: 1.6;
-    }
-    .validation-card,
-    .helper-prompt-card {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-        background: var(--color-surface-soft);
-    }
-    .validation-card {
-        grid-column: 2;
-    }
-    .helper-prompt-card {
-        grid-column: 2;
-    }
-    .validation-card__header,
-    .helper-prompt-card__header {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-2);
-    }
-    .validation-check {
-        padding: 0.45rem 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-    }
-    .validation-check__text {
-        font-size: 0.78rem;
-    }
-    .execution-panel {
-        display: none;
-    }
-}
-
-
-/* =========================================
-   WORKSPACE — LIMPIEZA DE NAVEGACIÓN DUPLICADA.
-========================================= */
-
-.workflow-stepper {
-    display: none !important;
-}
-
-.workflow-legacy-context {
-    display: none !important;
-}
-
-
-/* =========================================
-   ESTADO DEL PROMPT — BOTONES LIMPIOS.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-status-control {
-        display: grid;
-        gap: 0.55rem;
-        min-width: 330px;
-    }
-    .prompt-status-control__label {
-        color: var(--color-text-soft);
-        font-size: 0.72rem;
-        font-weight: 850;
-        letter-spacing: 0.04em;
-    }
-    .prompt-status-options {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-    }
-    .prompt-status-option {
-        min-height: 34px;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.45rem;
-        padding: 0.45rem 0.7rem;
-        color: var(--color-text-soft);
-        background: rgba(255, 253, 247, 0.8);
-        border: 1px solid rgba(17, 19, 15, 0.12);
-        border-radius: 999px;
-        font-size: 0.76rem;
-        font-weight: 850;
-        line-height: 1;
-        white-space: nowrap;
-        transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
-    }
-    .prompt-status-option:hover:not(:disabled) {
-        color: var(--color-text);
-        border-color: rgba(124, 143, 53, 0.45);
-        transform: translateY(-1px);
-    }
-    .prompt-status-option__icon {
-        width: 0.7rem;
-        height: 0.7rem;
-        border: 1.5px solid currentColor;
-        border-radius: 999px;
-        opacity: 0.75;
-    }
-    .prompt-status-option.is-active {
-        color: var(--color-text);
-        background: var(--color-surface-soft);
-        border-color: rgba(17, 19, 15, 0.2);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    }
-    .prompt-status-option.is-active.is-pending .prompt-status-option__icon {
-        background: var(--color-neutral);
-        border-color: var(--color-neutral);
-    }
-    .prompt-status-option.is-active.is-needs-review {
-        color: #8f6900;
-        background: var(--color-warning-soft);
-        border-color: rgba(217, 165, 32, 0.35);
-    }
-    .prompt-status-option.is-active.is-needs-review .prompt-status-option__icon {
-        background: var(--color-warning);
-        border-color: var(--color-warning);
-    }
-    .prompt-status-option.is-active.is-validated {
-        color: var(--color-success);
-        background: var(--color-success-soft);
-        border-color: rgba(79, 143, 72, 0.35);
-    }
-    .prompt-status-option.is-active.is-validated .prompt-status-option__icon {
-        background: var(--color-success);
-        border-color: var(--color-success);
-    }
-}
-
-
-/* =========================================
-   WORKSPACE — 2 COLUMNAS REALES.
-========================================= */
-
-@media (min-width: 900px) {
-    .workspace-grid {
-        display: grid;
-        grid-template-columns: minmax(250px, 300px) minmax(0, 1fr);
-        gap: var(--space-3);
-        align-items: start;
-    }
-    .workspace-grid__content {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) !important;
-        gap: var(--space-3);
-        min-width: 0;
-    }
-    .prompt-sequence-panel {
-        position: sticky;
-        top: 1rem;
-        align-self: start;
-        max-height: calc(100vh - 2rem);
-        overflow: auto;
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .prompt-sequence {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: var(--space-2);
-    }
-    .prompt-step {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        gap: 0.65rem;
-        align-items: center;
-        min-height: 62px;
-        padding: 0.72rem;
-        border-radius: var(--radius-sm);
-    }
-    .prompt-step__number {
-        width: 30px;
-        height: 30px;
-        font-size: 0.72rem;
-    }
-    .prompt-step__content {
-        min-width: 0;
-        gap: 0.12rem;
-    }
-    .prompt-step__title {
-        font-size: 0.82rem;
-        line-height: 1.12;
-    }
-    .prompt-step__description {
-        display: block;
-        overflow: hidden;
-        color: var(--color-text-soft);
-        font-size: 0.68rem;
-        line-height: 1.25;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    .prompt-step__state {
-        grid-column: auto;
-        max-width: 4.9rem;
-        padding: 0.25rem 0.45rem;
-        font-size: 0.62rem;
-        line-height: 1.05;
-        text-align: center;
-    }
-}
-
-
-/* =========================================
-   PANEL PRINCIPAL — COMPOSICIÓN APROBADA.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-detail-panel {
-        padding: var(--space-4);
-        border-radius: var(--radius-lg);
-    }
-    .prompt-detail-panel .panel__header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: var(--space-5);
-        align-items: start;
-        padding-bottom: var(--space-4);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .prompt-detail-panel .panel__title {
-        font-size: 1.35rem;
-        line-height: 1.1;
-    }
-    .prompt-tabs {
-        gap: var(--space-4);
-        border-bottom: 1px solid rgba(17, 19, 15, 0.1);
-    }
-    .prompt-tabs__button {
-        padding: 0.75rem 0;
-        color: var(--color-text-muted);
-        font-size: 0.82rem;
-    }
-    .prompt-tabs__button.is-active {
-        color: var(--color-primary);
-        border-bottom-color: var(--color-primary);
-    }
-    .prompt-detail-grid {
-        display: grid;
-        grid-template-columns: minmax(260px, 0.7fr) minmax(420px, 1fr);
-        gap: var(--space-4);
-        align-items: start;
-    }
-    .detail-card {
-        grid-column: 1;
-        grid-row: 1 / span 3;
-        display: grid;
-        gap: 0;
-        padding: 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-    }
-    .prompt-original-card {
-        grid-column: 2;
-        grid-row: 1;
-    }
-    .prompt-support-grid {
-        grid-column: 2;
-        grid-row: 2;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        gap: var(--space-3);
-        align-items: start;
-    }
-    .validation-card,
-    .helper-prompt-card {
-        min-width: 0;
-        height: 100%;
-    }
-    .execution-panel {
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
-        gap: var(--space-3);
-        position: static !important;
-        max-height: none !important;
-        overflow: visible !important;
-    }
-    .execution-panel .panel {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-    }
-    .execution-panel .panel__header {
-        grid-template-columns: 1fr;
-        margin-bottom: var(--space-2);
-    }
-    .delivery-hint-card {
-        display: none !important;
-    }
-}
-
-
-/* =========================================
-   BLOQUES CON ÍCONOS — COLUMNA INFORMATIVA.
-========================================= */
-
-@media (min-width: 900px) {
-    .detail-card__intro,
-    .detail-toggle {
-        position: relative;
-        padding: var(--space-3) 0 var(--space-3) 2.15rem;
-        border-bottom: 1px solid rgba(17, 19, 15, 0.08);
-    }
-    .detail-card__intro::before,
-    .detail-toggle::before {
-        position: absolute;
-        top: var(--space-3);
-        left: 0;
-        width: 24px;
-        height: 24px;
-        display: grid;
-        place-items: center;
-        color: var(--color-primary);
-        background: rgba(124, 143, 53, 0.1);
-        border: 1px solid rgba(124, 143, 53, 0.18);
-        border-radius: 999px;
-        font-size: 0.75rem;
-        font-weight: 950;
-    }
-    .detail-card__intro::before {
-        content: "◎";
-    }
-    .detail-toggle:nth-of-type(1)::before {
-        content: "⌂";
-    }
-    .detail-toggle:nth-of-type(2)::before {
-        content: "✓";
-    }
-    .detail-toggle:nth-of-type(3)::before {
-        content: "!";
-        color: #b97800;
-        background: var(--color-warning-soft);
-        border-color: rgba(217, 165, 32, 0.35);
-    }
-    .detail-toggle__summary::after {
-        display: none;
-    }
-    .detail-card__title,
-    .detail-toggle__summary {
-        font-size: 0.9rem;
-        font-weight: 900;
-        line-height: 1.2;
-    }
-    .detail-card__text,
-    .detail-card__list {
-        font-size: 0.8rem;
-        line-height: 1.55;
-    }
-}
-
-
-/* =========================================
-   PROMPT ORIGINAL + CHECKLIST + AUXILIAR.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-original-card,
-    .validation-card,
-    .helper-prompt-card {
-        padding: var(--space-3);
-        border-radius: var(--radius-md);
-        background: var(--color-surface-soft);
-    }
-    .prompt-original-card__header {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: start;
-        gap: var(--space-3);
-    }
-    .prompt-code {
-        max-height: 260px;
-        padding: var(--space-3);
-        color: var(--color-text);
-        background: rgba(124, 143, 53, 0.045);
-        border: 1px solid rgba(124, 143, 53, 0.22);
-        font-size: 0.78rem;
-        line-height: 1.55;
-    }
-    .validation-card__header,
-    .helper-prompt-card__header {
-        grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-2);
-    }
-    .validation-check {
-        padding: 0.42rem 0;
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-    }
-    .validation-check__text {
-        font-size: 0.74rem;
-        line-height: 1.35;
-    }
-    .helper-prompt-card .button {
-        width: 100%;
-    }
-    .helper-prompt-card .prompt-code {
-        max-height: 190px;
-    }
-}
-
-
-/* =========================================
-   FIX WORKSPACE — SOPORTE EN DOS COLUMNAS.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-detail-grid {
-        grid-template-columns: minmax(280px, 0.62fr) minmax(520px, 1fr) !important;
-        gap: var(--space-4);
-        align-items: start;
-    }
-    .prompt-support-grid {
-        grid-column: 2 !important;
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-        gap: var(--space-3);
-        align-items: start;
-    }
-    .validation-card,
-    .helper-prompt-card {
-        min-width: 0;
-        height: 100%;
-    }
-    .helper-prompt-card .prompt-code {
-        max-height: 220px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .prompt-detail-grid {
-        grid-template-columns: minmax(320px, 0.58fr) minmax(620px, 1fr) !important;
-    }
-}
-
-
-/* =========================================
-   FIX STATUS BAR — MODELO Y SEPARADORES.
-========================================= */
-
-@media (min-width: 900px) {
-    .workflow-status {
-        grid-template-columns: minmax(170px, 0.22fr) minmax(360px, 1fr) minmax(160px, 0.2fr);
-        align-items: center;
     }
     .workflow-status__item {
         min-height: 56px;
@@ -3049,426 +1368,745 @@ code {
         padding-right: var(--space-4);
         border-right: 1px solid rgba(17, 19, 15, 0.1);
     }
-    .workflow-status__content {
-        display: grid;
-        gap: 0.18rem;
-        align-items: center;
-    }
-    .workflow-status__label {
-        line-height: 1;
-    }
-    .workflow-status__value {
-        display: block;
-        line-height: 1.1;
-    }
     .workflow-status__item--progress {
         padding-inline: var(--space-4);
         border-right: 1px solid rgba(17, 19, 15, 0.1);
     }
     .workflow-status__item--state {
+        justify-self: end;
         padding-left: var(--space-4);
     }
-}
-
-
-/* =========================================
-   FIX — CHECKLIST + PROMPT AUXILIAR EN PARALELO.
-========================================= */
-
-@media (min-width: 900px) {
-    .prompt-support-grid {
-        grid-column: 2 !important;
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-        gap: var(--space-3) !important;
+    .workflow-hero {
+        grid-template-columns: minmax(0, 1fr) 360px;
         align-items: stretch;
+    }
+    body.has-active-model .workspace-grid {
+        grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+        gap: var(--space-5);
+        align-items: start;
         width: 100%;
-        min-width: 0;
+        max-width: 100%;
+        overflow: visible;
     }
-    .prompt-support-grid .validation-card,
-    .prompt-support-grid .helper-prompt-card {
-        grid-column: auto !important;
-        grid-row: auto !important;
-        width: 100%;
-        min-width: 0;
-        height: 100%;
+    body.has-active-model .workspace-grid__content {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-5);
     }
-    .prompt-support-grid .validation-card {
-        grid-column: 1 !important;
-    }
-    .prompt-support-grid .helper-prompt-card {
-        grid-column: 2 !important;
+    body.has-active-model .prompt-sequence-panel {
+        position: sticky;
+        top: 6.25rem;
+        z-index: 20;
+        max-height: calc(100vh - 7rem);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }
 
 
 /* =========================================
-   PROMPT TABS — REMOVIDAS.
+   WORKFLOW — TABLET / DESKTOP MEDIO.
 ========================================= */
 
-.prompt-tabs {
-    display: none !important;
-}
-
-@media (min-width: 900px) {
-    .prompt-detail-panel {
+@media (min-width: 900px) and (max-width: 1199px) {
+    body.has-active-model .workspace-grid {
+        grid-template-columns: minmax(230px, 270px) minmax(0, 1fr);
         gap: var(--space-4);
     }
 }
 
 
 /* =========================================
-   COPY BUTTON — ESTILO APROBADO.
+   WORKFLOW — MOBILE.
 ========================================= */
 
-#copy-prompt-button {
-    min-height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    padding: 0.62rem 0.9rem;
-    color: var(--color-text);
-    background: var(--color-surface-soft);
-    border: 1px solid rgba(17, 19, 15, 0.18);
-    border-radius: 8px;
-    box-shadow: none;
-    font-size: 0.86rem;
-    font-weight: 850;
-}
-
-#copy-prompt-button::before {
-    content: "⧉";
-    display: inline-grid;
-    place-items: center;
-    font-size: 1rem;
-    line-height: 1;
-}
-
-#copy-prompt-button:hover:not(:disabled) {
-    color: var(--color-text);
-    background: #ffffff;
-    border-color: rgba(17, 19, 15, 0.28);
-    transform: translateY(-1px);
-}
-
-#copy-prompt-button:disabled {
-    opacity: 0.55;
+@media (max-width: 899px) {
+    body.has-active-model .dashboard {
+        padding: var(--space-4);
+    }
+    body.has-active-model #workflow {
+        padding-top: var(--space-3);
+    }
+    body.has-active-model .workflow-status {
+        position: sticky;
+        top: var(--space-2);
+        z-index: 40;
+    }
+    .workflow-status__item--progress,
+    .workflow-status__item--state {
+        padding-top: var(--space-2);
+        border-top: 1px solid rgba(17, 19, 15, 0.08);
+    }
 }
 
 
 /* =========================================
-   FIX FINAL — STICKY SIDEBAR + OVERFLOW WORKSPACE.
+   WORKFLOW — PROMPT SEQUENCE SIDEBAR.
+   Lista lateral de prompts del modelo activo.
 ========================================= */
 
-html,
-body {
-    max-width: 100%;
-    overflow-x: hidden;
+.prompt-sequence-panel {
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
 }
 
-.dashboard,
-.workflow,
-.workspace-grid,
-.workspace-grid__content,
-.prompt-detail-panel,
-.prompt-detail-grid,
-.prompt-original-card,
-.validation-card,
-.helper-prompt-card,
-.prompt-code {
+.prompt-sequence-panel .panel__header {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+.prompt-sequence-panel .panel__title {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.prompt-sequence-panel .panel__text {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    line-height: 1.5;
+}
+
+.prompt-sequence {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP.
+   Card compacta de cada prompt.
+========================================= */
+
+.prompt-step {
+    width: 100%;
+    min-height: 64px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2);
+    align-items: start;
+    padding: var(--space-3);
+    color: var(--color-text);
+    text-align: left;
+    background: var(--color-surface-soft);
+    border: 1px solid rgba(17, 19, 15, 0.1);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.prompt-step:hover {
+    transform: translateY(-1px);
+    border-color: var(--active-model-accent-border, rgba(124, 143, 53, 0.42));
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.prompt-step:focus-visible {
+    outline: 3px solid rgba(163, 184, 77, 0.72);
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP NUMBER.
+========================================= */
+
+.prompt-step__number {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    color: var(--color-text-soft);
+    background: rgba(17, 19, 15, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    line-height: 1;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP CONTENT.
+========================================= */
+
+.prompt-step__content {
+    min-width: 0;
+    display: grid;
+    gap: 0.2rem;
+}
+
+.prompt-step__title {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.prompt-step__description {
+    display: block;
+    overflow: hidden;
+    color: var(--color-text-soft);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+    line-height: 1.35;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP STATE.
+   Badge funcional, no decorativo.
+========================================= */
+
+.prompt-step__state {
+    grid-column: 2;
+    width: fit-content;
+    max-width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+    padding: 0.3rem 0.55rem;
+    color: var(--color-neutral);
+    background: var(--color-neutral-soft);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.prompt-step__state::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: currentColor;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP STATES.
+========================================= */
+
+.prompt-step.is-pending {
+    background: var(--color-surface-soft);
+}
+
+.prompt-step.is-pending .prompt-step__state,
+.prompt-step__state--pending {
+    color: var(--color-neutral);
+    background: var(--color-neutral-soft);
+    border-color: rgba(119, 125, 112, 0.18);
+}
+
+.prompt-step.is-selected {
+    background: linear-gradient( 135deg, var(--active-model-accent-soft, var(--color-primary-soft)), rgba(255, 253, 247, 0.96));
+    border-color: var(--active-model-accent-border, rgba(124, 143, 53, 0.7));
+    box-shadow: 0 12px 28px var(--active-model-accent-shadow, rgba(124, 143, 53, 0.12)), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.prompt-step.is-selected .prompt-step__number {
+    color: #ffffff;
+    background: var(--active-model-accent, var(--color-primary));
+    border-color: var(--active-model-accent, var(--color-primary));
+}
+
+.prompt-step.is-selected .prompt-step__state {
+    color: var(--active-model-accent, var(--color-primary));
+    background: rgba(255, 253, 247, 0.76);
+    border-color: var(--active-model-accent-border, rgba(124, 143, 53, 0.28));
+}
+
+.prompt-step.is-needs-review {
+    background: linear-gradient( 135deg, rgba(217, 165, 32, 0.12), rgba(255, 253, 247, 0.96));
+    border-color: rgba(217, 165, 32, 0.48);
+}
+
+.prompt-step.is-needs-review .prompt-step__number {
+    color: #6b5200;
+    background: var(--color-warning-soft);
+    border-color: rgba(217, 165, 32, 0.42);
+}
+
+.prompt-step.is-needs-review .prompt-step__state,
+.prompt-step__state--needs-review {
+    color: #8f6900;
+    background: var(--color-warning-soft);
+    border-color: rgba(217, 165, 32, 0.32);
+}
+
+.prompt-step.is-validated {
+    background: linear-gradient( 135deg, rgba(79, 143, 72, 0.12), rgba(255, 253, 247, 0.96));
+    border-color: rgba(79, 143, 72, 0.44);
+}
+
+.prompt-step.is-validated .prompt-step__number {
+    color: #ffffff;
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.prompt-step.is-validated .prompt-step__state,
+.prompt-step__state--validated {
+    color: var(--color-success);
+    background: var(--color-success-soft);
+    border-color: rgba(79, 143, 72, 0.28);
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STEP PLACEHOLDER.
+========================================= */
+
+.prompt-step--placeholder {
+    opacity: 0.72;
+}
+
+.prompt-step--placeholder:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* =========================================
+   WORKFLOW — SIDEBAR SCROLLBAR.
+========================================= */
+
+.prompt-sequence-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.prompt-sequence-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.prompt-sequence-panel::-webkit-scrollbar-thumb {
+    background: rgba(17, 19, 15, 0.18);
+    border-radius: 999px;
+}
+
+
+/* =========================================
+   WORKFLOW — DESKTOP SIDEBAR.
+========================================= */
+
+@media (min-width: 900px) {
+    body.has-active-model .prompt-sequence-panel {
+        position: sticky;
+        top: 6.25rem;
+        z-index: 20;
+        align-self: start;
+        max-height: calc(100vh - 7rem);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .prompt-step {
+        grid-template-columns: auto minmax(0, 1fr);
+        min-height: 64px;
+        padding: 0.85rem;
+    }
+    .prompt-step__number {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — MOBILE SIDEBAR.
+========================================= */
+
+@media (max-width: 899px) {
+    .prompt-step {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+    .prompt-step__description {
+        white-space: normal;
+        text-overflow: initial;
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT DETAIL PANEL.
+   Panel principal del prompt seleccionado.
+========================================= */
+
+.prompt-detail-panel {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    scroll-margin-top: 210px;
+}
+
+.prompt-detail-panel .panel__header {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: 0;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid rgba(17, 19, 15, 0.08);
+}
+
+.prompt-detail-panel .panel__title {
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STATUS CONTROL.
+========================================= */
+
+.prompt-status-control {
+    display: grid;
+    gap: 0.55rem;
     min-width: 0;
     max-width: 100%;
 }
 
+.prompt-status-control__label {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.04em;
+}
 
-/* Evita que bloques de código o prompts largos rompan el contenedor. */
+.prompt-status-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    max-width: 100%;
+}
+
+.prompt-status-option {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.7rem;
+    color: var(--color-text-soft);
+    background: rgba(255, 253, 247, 0.8);
+    border: 1px solid rgba(17, 19, 15, 0.12);
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+    white-space: nowrap;
+    transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+.prompt-status-option:hover:not(:disabled) {
+    color: var(--color-text);
+    border-color: var(--active-model-accent-border, rgba(124, 143, 53, 0.45));
+    transform: translateY(-1px);
+}
+
+.prompt-status-option__icon {
+    width: 0.7rem;
+    height: 0.7rem;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    opacity: 0.75;
+}
+
+.prompt-status-option.is-active {
+    color: var(--color-text);
+    background: var(--color-surface-soft);
+    border-color: rgba(17, 19, 15, 0.2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.prompt-status-option.is-active.is-pending .prompt-status-option__icon {
+    background: var(--color-neutral);
+    border-color: var(--color-neutral);
+}
+
+.prompt-status-option.is-active.is-needs-review {
+    color: #8f6900;
+    background: var(--color-warning-soft);
+    border-color: rgba(217, 165, 32, 0.35);
+}
+
+.prompt-status-option.is-active.is-needs-review .prompt-status-option__icon {
+    background: var(--color-warning);
+    border-color: var(--color-warning);
+}
+
+.prompt-status-option.is-active.is-validated {
+    color: var(--color-success);
+    background: var(--color-success-soft);
+    border-color: rgba(79, 143, 72, 0.35);
+}
+
+.prompt-status-option.is-active.is-validated .prompt-status-option__icon {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT DETAIL GRID.
+========================================= */
+
+.prompt-detail-grid {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+}
+
+.prompt-detail-grid>article,
+.prompt-detail-grid>div {
+    min-width: 0;
+}
+
+
+/* =========================================
+   WORKFLOW — DETAIL CARD.
+   Columna informativa "Qué resuelve".
+========================================= */
+
+.detail-card {
+    display: grid;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.detail-card__intro,
+.detail-toggle {
+    position: relative;
+    padding: var(--space-3) 0 var(--space-3) 2.15rem;
+    border-bottom: 1px solid rgba(17, 19, 15, 0.08);
+}
+
+.detail-card__intro::before,
+.detail-toggle::before {
+    position: absolute;
+    top: var(--space-3);
+    left: 0;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    color: var(--active-model-accent, var(--color-primary));
+    background: var(--active-model-accent-soft, rgba(124, 143, 53, 0.1));
+    border: 1px solid var(--active-model-accent-border, rgba(124, 143, 53, 0.18));
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+}
+
+.detail-card__intro::before {
+    content: "◎";
+}
+
+.detail-toggle:nth-of-type(1)::before {
+    content: "⌂";
+}
+
+.detail-toggle:nth-of-type(2)::before {
+    content: "✓";
+}
+
+.detail-toggle:nth-of-type(3)::before {
+    content: "!";
+    color: #b97800;
+    background: var(--color-warning-soft);
+    border-color: rgba(217, 165, 32, 0.35);
+}
+
+.detail-card__title,
+.detail-card__subtitle,
+.detail-toggle__summary {
+    margin: 0 0 var(--space-2);
+    color: var(--color-text);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.detail-card__text,
+.detail-card__list {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    line-height: 1.55;
+}
+
+.detail-card__list {
+    display: grid;
+    gap: var(--space-2);
+    padding-left: 1.15rem;
+}
+
+.detail-card__list li::marker {
+    color: var(--active-model-accent, var(--color-primary));
+}
+
+.detail-card__group {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(17, 19, 15, 0.08);
+}
+
+
+/* =========================================
+   WORKFLOW — DETAIL TOGGLE.
+========================================= */
+
+.detail-toggle:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.detail-toggle__summary {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    cursor: pointer;
+    list-style: none;
+}
+
+.detail-toggle__summary::-webkit-details-marker {
+    display: none;
+}
+
+.detail-toggle__summary::after {
+    display: none;
+}
+
+.detail-toggle__content {
+    padding-top: var(--space-2);
+}
+
+.detail-toggle__content .detail-card__list,
+.detail-toggle__content .detail-card__text {
+    margin: 0;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT ORIGINAL CARD.
+========================================= */
+
+.prompt-original-card,
+.validation-card,
+.helper-prompt-card {
+    min-width: 0;
+    padding: var(--space-4);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.prompt-original-card__header,
+.validation-card__header {
+    display: grid;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.prompt-original-card__title,
+.validation-card__title,
+.helper-prompt-card__title {
+    margin: 0 0 var(--space-2);
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.prompt-original-card__text,
+.validation-card__text,
+.helper-prompt-card__text {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT CODE.
+========================================= */
 
 .prompt-code {
+    width: 100%;
+    max-height: 260px;
     overflow: auto;
+    padding: var(--space-3);
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--active-model-accent-soft, var(--color-primary-soft)) 55%, white);
+    border: 1px solid var(--active-model-accent-border, rgba(124, 143, 53, 0.22));
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    line-height: 1.6;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 
-
-/* =========================================
-   DESKTOP BASE.
-========================================= */
-
-@media (min-width: 900px) {
-    .workspace-grid {
-        grid-template-columns: minmax(240px, 280px) minmax(0, 1fr) !important;
-        gap: var(--space-3);
-        overflow: visible;
-    }
-    .workspace-grid__content {
-        grid-template-columns: minmax(0, 1fr) !important;
-        min-width: 0;
-    }
-    .prompt-sequence-panel {
-        position: sticky !important;
-        top: 8.5rem !important;
-        align-self: start;
-        max-height: calc(100vh - 9.5rem);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    .prompt-detail-panel {
-        overflow: hidden;
-    }
-    .prompt-detail-panel .panel__header {
-        grid-template-columns: minmax(0, 1fr) auto;
-        min-width: 0;
-    }
-    .prompt-status-control {
-        min-width: 0 !important;
-        max-width: 100%;
-    }
-    .prompt-status-options {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 0.5rem;
-        max-width: 100%;
-    }
-    .prompt-status-option {
-        flex: 0 1 auto;
-    }
-    .prompt-detail-grid {
-        grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1fr) !important;
-        gap: var(--space-4);
-        min-width: 0;
-    }
-    .prompt-support-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        min-width: 0;
-    }
-    .prompt-original-card,
-    .validation-card,
-    .helper-prompt-card {
-        min-width: 0;
-        max-width: 100%;
-    }
+.prompt-code--helper {
+    max-height: 220px;
 }
 
 
 /* =========================================
-   DESKTOP MEDIO.
-   Evita que checklist + auxiliar rompan el layout.
+   WORKFLOW — COPY BUTTONS.
 ========================================= */
 
-@media (min-width: 900px) and (max-width: 1199px) {
-    .workspace-grid {
-        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) !important;
-    }
-    .prompt-detail-grid {
-        grid-template-columns: 1fr !important;
-    }
-    .detail-card,
-    .prompt-original-card,
-    .prompt-support-grid {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-    }
-    .prompt-support-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-}
-
-
-/* =========================================
-   DESKTOP ANGOSTO.
-   Mantiene todo legible sin romper hacia la derecha.
-========================================= */
-
-@media (min-width: 900px) and (max-width: 1050px) {
-    .prompt-support-grid {
-        grid-template-columns: 1fr !important;
-    }
-    .prompt-detail-panel .panel__header {
-        grid-template-columns: 1fr;
-    }
-    .prompt-status-options {
-        justify-content: flex-start;
-    }
-}
-
-
-/* =========================================
-   FIX STICKY — STATUS + SECUENCIA.
-   Recupera sticky sin romper el workspace.
-========================================= */
-
-
-/* Evita que padres corten el sticky. */
-
-.app-shell,
-.dashboard,
-.workflow,
-.workspace-grid,
-.workspace-grid__content {
-    overflow: visible !important;
-}
-
-
-/* Controla overflow horizontal sin matar sticky. */
-
-html {
-    max-width: 100%;
-    overflow-x: clip;
-}
-
-body {
-    max-width: 100%;
-    overflow-x: clip;
-}
-
-
-/* Barra de progreso general sticky. */
-
-.workflow-status {
-    position: sticky !important;
-    top: 1rem !important;
-    z-index: 30 !important;
-}
-
-
-/* Secuencia izquierda sticky debajo del progreso. */
-
-@media (min-width: 900px) {
-    .prompt-sequence-panel {
-        position: sticky !important;
-        top: 7.75rem !important;
-        z-index: 20 !important;
-        align-self: start;
-        max-height: calc(100vh - 10rem);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-}
-
-
-/* Si el status bar queda más alto o más bajo, ajusta solo este valor. */
-
-@media (min-width: 900px) and (max-width: 1150px) {
-    .prompt-sequence-panel {
-        top: 9.25rem !important;
-        max-height: calc(100vh - 10.5rem);
-    }
-}
-
-
-/* =========================================
-   HEADER — OCULTAR MODELO ACTIVO DUPLICADO.
-========================================= */
-
-.app-header .context-pill:not(.context-pill--delivery) {
-    display: none !important;
-}
-
-
-/* =========================================
-   COPY BUTTON — PROMPT AUXILIAR.
-   Igual al botón Copiar prompt y ubicado abajo.
-========================================= */
-
-.helper-prompt-card__header {
-    display: block !important;
-}
-
+#copy-prompt-button,
 #copy-helper-prompt-button {
-    min-height: 40px;
+    min-height: 42px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.55rem;
-    width: fit-content;
-    margin-top: var(--space-3);
-    padding: 0.62rem 0.9rem;
+    padding: 0.68rem 0.9rem;
     color: var(--color-text);
     background: var(--color-surface-soft);
     border: 1px solid rgba(17, 19, 15, 0.18);
     border-radius: 8px;
     box-shadow: none;
-    font-size: 0.86rem;
-    font-weight: 850;
-}
-
-#copy-helper-prompt-button::before {
-    content: "⧉";
-    display: inline-grid;
-    place-items: center;
-    font-size: 1rem;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
     line-height: 1;
-}
-
-#copy-helper-prompt-button:hover:not(:disabled) {
-    color: var(--color-text);
-    background: #ffffff;
-    border-color: rgba(17, 19, 15, 0.28);
-    transform: translateY(-1px);
-}
-
-#copy-helper-prompt-button:disabled {
-    opacity: 0.55;
-}
-
-
-/* En desktop, reordena visualmente: texto, código, botón. */
-
-@media (min-width: 900px) {
-    .helper-prompt-card {
-        display: flex;
-        flex-direction: column;
-    }
-    .helper-prompt-card__header {
-        display: contents !important;
-    }
-    .helper-prompt-card__header>div {
-        order: 1;
-    }
-    .helper-prompt-card .prompt-code {
-        order: 2;
-    }
-    #copy-helper-prompt-button {
-        order: 3;
-        align-self: flex-end;
-    }
-}
-
-
-/* =========================================
-   FIX COPY AUXILIAR — ANCHO COMPLETO Y CENTRADO.
-========================================= */
-
-#copy-helper-prompt-button {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 40px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    margin-top: var(--space-3);
-    padding: 0.62rem 0.9rem;
-    color: var(--color-text);
-    background: var(--color-surface-soft);
-    border: 1px solid rgba(17, 19, 15, 0.18);
-    border-radius: 8px;
-    box-shadow: none;
-    font-size: 0.86rem;
-    font-weight: 850;
     text-align: center;
 }
 
+#copy-prompt-button::before,
 #copy-helper-prompt-button::before {
     content: "⧉";
     display: inline-grid;
     place-items: center;
-    font-size: 1rem;
+    font-size: var(--text-base);
     line-height: 1;
 }
 
+#copy-prompt-button:hover:not(:disabled),
 #copy-helper-prompt-button:hover:not(:disabled) {
     color: var(--color-text);
     background: #ffffff;
@@ -3476,44 +2114,115 @@ body {
     transform: translateY(-1px);
 }
 
+#copy-prompt-button:disabled,
 #copy-helper-prompt-button:disabled {
     opacity: 0.55;
 }
 
-@media (min-width: 900px) {
-    .helper-prompt-card {
-        display: flex;
-        flex-direction: column;
-    }
-    .helper-prompt-card__header {
-        display: contents !important;
-    }
-    .helper-prompt-card__header>div {
-        order: 1;
-    }
-    .helper-prompt-card .prompt-code {
-        order: 2;
-    }
-    #copy-helper-prompt-button {
-        order: 3;
-        align-self: stretch !important;
-    }
+
+/* =========================================
+   WORKFLOW — VALIDATION CARD.
+========================================= */
+
+.validation-checklist {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.validation-checklist__legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.validation-check {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2);
+    align-items: start;
+    padding: 0.42rem 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.validation-check__input {
+    position: absolute;
+    opacity: 0;
+}
+
+.validation-check__box {
+    width: 20px;
+    height: 20px;
+    margin-top: 0.1rem;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface-soft);
+    border: 1.5px solid rgba(17, 19, 15, 0.35);
+    border-radius: 6px;
+}
+
+.validation-check__input:checked+.validation-check__box {
+    background: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.validation-check__input:checked+.validation-check__box::before {
+    content: "✓";
+    color: #ffffff;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-black);
+}
+
+.validation-check__input:focus-visible+.validation-check__box {
+    outline: 3px solid rgba(163, 184, 77, 0.72);
+    outline-offset: 3px;
+}
+
+.validation-check__text {
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-regular);
+    line-height: 1.4;
 }
 
 
 /* =========================================
-   FIX PROMPT AUXILIAR — ESPACIADO Y PADDING.
+   WORKFLOW — SUPPORT GRID.
+========================================= */
+
+.prompt-support-grid {
+    display: grid;
+    gap: var(--space-3);
+    min-width: 0;
+}
+
+.prompt-support-grid .validation-card,
+.prompt-support-grid .helper-prompt-card {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+
+/* =========================================
+   WORKFLOW — HELPER PROMPT CARD.
 ========================================= */
 
 .helper-prompt-card {
-    padding: var(--space-3) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: var(--space-3) !important;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
 }
 
 .helper-prompt-card__header {
-    display: contents !important;
+    display: contents;
 }
 
 .helper-prompt-card__header>div {
@@ -3522,53 +2231,1162 @@ body {
     order: 1;
 }
 
-.helper-prompt-card__title {
-    margin: 0 !important;
-    font-size: 1rem;
-    line-height: 1.2;
-}
-
-.helper-prompt-card__text {
-    margin: 0 !important;
-    font-size: 0.92rem;
-    line-height: 1.55;
-}
-
 .helper-prompt-card .prompt-code {
     order: 2;
-    width: 100%;
-    max-height: 210px;
-    margin: 0 !important;
-    padding: var(--space-3) !important;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    line-height: 1.45;
 }
 
 #copy-helper-prompt-button {
     order: 3;
-    width: 100% !important;
-    margin: 0 !important;
-    min-height: 42px;
-    padding: 0.68rem 0.9rem;
-    align-self: stretch !important;
+    width: 100%;
+    align-self: stretch;
+    margin: 0;
 }
 
+
+/* =========================================
+   WORKFLOW — EXECUTION PANEL.
+   Output esperado y siguiente acción.
+========================================= */
+
+.execution-panel {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+}
+
+.expected-output-card,
+.delivery-hint-card,
+.next-step-card {
+    background: rgba(255, 253, 247, 0.9);
+}
+
+.expected-output-list {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding-left: 1.25rem;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    line-height: 1.55;
+}
+
+.expected-output-list li::marker {
+    color: var(--active-model-accent, var(--color-primary));
+}
+
+.delivery-hint-card {
+    display: none;
+}
+
+.next-step-card__text,
+.delivery-hint-card__text {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: var(--text-base);
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   WORKFLOW — DESKTOP DETAIL LAYOUT.
+========================================= */
+
 @media (min-width: 900px) {
-    .helper-prompt-card {
-        gap: var(--space-3) !important;
+    .prompt-detail-panel .panel__header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-5);
+        align-items: start;
     }
-    .helper-prompt-card .prompt-code {
-        max-height: 220px;
+    .prompt-status-control {
+        min-width: 330px;
+    }
+    .prompt-status-options {
+        justify-content: flex-end;
+    }
+    body.has-active-model .prompt-detail-panel {
+        padding: var(--space-5);
+        overflow: visible;
+    }
+    body.has-active-model .prompt-detail-grid {
+        grid-template-columns: minmax(280px, 0.62fr) minmax(0, 1fr);
+        gap: var(--space-5);
+        align-items: start;
+    }
+    .detail-card {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+    }
+    .prompt-original-card {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .prompt-original-card__header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: var(--space-3);
+    }
+    .prompt-support-grid {
+        grid-column: 2;
+        grid-row: 2;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-4);
+        align-items: stretch;
+    }
+    .prompt-support-grid .validation-card {
+        grid-column: 1;
+    }
+    .prompt-support-grid .helper-prompt-card {
+        grid-column: 2;
+    }
+    .execution-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+        gap: var(--space-3);
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+    .execution-panel .panel {
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+    }
+    .execution-panel .panel__header {
+        grid-template-columns: 1fr;
+        margin-bottom: var(--space-2);
     }
 }
 
 
 /* =========================================
-   PROMPT AUXILIAR — LECTURA DEL BLOQUE.
+   WORKFLOW — DESKTOP MEDIO.
 ========================================= */
 
-.helper-prompt-card .prompt-code {
-    font-size: 0.84rem !important;
-    line-height: 1.55 !important;
+@media (min-width: 900px) and (max-width: 1199px) {
+    body.has-active-model .prompt-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    .detail-card,
+    .prompt-original-card,
+    .prompt-support-grid {
+        grid-column: 1;
+        grid-row: auto;
+    }
+    .prompt-support-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — DESKTOP ANGOSTO.
+========================================= */
+
+@media (min-width: 900px) and (max-width: 1050px) {
+    .prompt-detail-panel .panel__header {
+        grid-template-columns: 1fr;
+    }
+    .prompt-status-options {
+        justify-content: flex-start;
+    }
+    .prompt-support-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — MOBILE DETAIL.
+========================================= */
+
+@media (max-width: 899px) {
+    .prompt-original-card__header,
+    .validation-card__header {
+        grid-template-columns: 1fr;
+    }
+    .prompt-support-grid {
+        grid-template-columns: 1fr;
+    }
+    .execution-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   CLEANUP — DUPLICATED NAVIGATION.
+   Oculta navegación legacy que ya no forma parte del flujo aprobado.
+========================================= */
+
+.workflow-stepper,
+.workflow-legacy-context,
+.prompt-tabs {
+    display: none;
+}
+
+.context-pill--delivery,
+.delivery-hint-card {
+    display: none;
+}
+
+
+/* =========================================
+   GLOBAL STATES.
+   Estados visuales reutilizables.
+========================================= */
+
+.is-hidden,
+[hidden] {
+    display: none;
+}
+
+.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.is-loading {
+    cursor: progress;
+}
+
+.is-selected {
+    border-color: var(--active-model-accent-border, var(--color-primary));
+}
+
+.is-pending {
+    color: var(--color-neutral);
+}
+
+.is-needs-review {
+    color: var(--color-warning);
+}
+
+.is-validated {
+    color: var(--color-success);
+}
+
+
+/* =========================================
+   FORM CONTROLS.
+   Selects e inputs base.
+========================================= */
+
+select,
+input,
+textarea {
+    color: var(--color-text);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
+}
+
+select:disabled,
+input:disabled,
+textarea:disabled {
+    opacity: 0.58;
+    background: rgba(255, 253, 247, 0.58);
+}
+
+
+/* =========================================
+   BUTTON STATES.
+========================================= */
+
+.button:active:not(:disabled),
+#copy-prompt-button:active:not(:disabled),
+#copy-helper-prompt-button:active:not(:disabled),
+.prompt-status-option:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.button:disabled,
+#copy-prompt-button:disabled,
+#copy-helper-prompt-button:disabled,
+.prompt-status-option:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   COPY BUTTON FEEDBACK STATES.
+   Preparado para JS si luego agregas clases de feedback.
+========================================= */
+
+#copy-prompt-button.is-copied,
+#copy-helper-prompt-button.is-copied {
+    color: var(--color-success);
+    background: var(--color-success-soft);
+    border-color: rgba(79, 143, 72, 0.35);
+}
+
+#copy-prompt-button.is-copied::before,
+#copy-helper-prompt-button.is-copied::before {
+    content: "✓";
+}
+
+
+/* =========================================
+   WORKFLOW — SAFE OVERFLOW.
+   Evita roturas horizontales sin matar sticky.
+========================================= */
+
+.app-shell,
+.dashboard,
+.workflow,
+.workspace-grid,
+.workspace-grid__content {
+    overflow: visible;
+}
+
+.prompt-detail-panel,
+.prompt-detail-grid,
+.prompt-original-card,
+.validation-card,
+.helper-prompt-card,
+.prompt-support-grid,
+.execution-panel,
+.panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.prompt-code {
+    max-width: 100%;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   WORKFLOW — FINAL STICKY RELATIONSHIP.
+   Progress sticky arriba + sidebar debajo.
+========================================= */
+
+@media (min-width: 900px) {
+    body.has-active-model .workflow-status {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+    }
+    body.has-active-model .prompt-sequence-panel {
+        position: sticky;
+        top: 6.25rem;
+        z-index: 20;
+        max-height: calc(100vh - 7rem);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1150px) {
+    body.has-active-model .prompt-sequence-panel {
+        top: 7.5rem;
+        max-height: calc(100vh - 8.25rem);
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — FINAL TYPOGRAPHY NORMALIZATION.
+   Mantiene escala aprobada.
+========================================= */
+
+body.has-active-model .workflow-status__label,
+body.has-active-model .panel__eyebrow,
+body.has-active-model .summary-card__label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.06em;
+}
+
+body.has-active-model .workflow-status__value {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+}
+
+body.has-active-model .workflow-status__title {
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+}
+
+body.has-active-model .workflow-status__percentage {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+}
+
+body.has-active-model .panel__text,
+body.has-active-model .prompt-step__description,
+body.has-active-model .detail-card__text,
+body.has-active-model .prompt-original-card__text,
+body.has-active-model .validation-card__text,
+body.has-active-model .helper-prompt-card__text,
+body.has-active-model .validation-check__text {
+    color: var(--color-text-soft);
+}
+
+
+/* =========================================
+   WORKFLOW — FINAL PANEL POLISH.
+========================================= */
+
+body.has-active-model .panel,
+body.has-active-model .prompt-original-card,
+body.has-active-model .validation-card,
+body.has-active-model .helper-prompt-card {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+body.has-active-model .prompt-original-card,
+body.has-active-model .validation-card,
+body.has-active-model .helper-prompt-card {
+    padding: var(--space-4);
+}
+
+
+/* =========================================
+   HOME SAFETY.
+   Evita que reglas del workflow contaminen el home.
+========================================= */
+
+body:not(.has-active-model) .dashboard {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+}
+
+body:not(.has-active-model) .workflow {
+    display: none;
+}
+
+body:not(.has-active-model) .model-start {
+    display: grid;
+}
+
+
+/* =========================================
+   WORKFLOW SAFETY.
+   Evita que reglas del home contaminen páginas internas.
+========================================= */
+
+body.has-active-model #model-start {
+    display: none;
+}
+
+body.has-active-model .model-card {
+    min-height: initial;
+}
+
+
+/* =========================================
+   RESPONSIVE — TABLET.
+========================================= */
+
+@media (min-width: 768px) and (max-width: 899px) {
+    .dashboard {
+        padding: var(--space-4);
+    }
+    .workflow {
+        gap: var(--space-4);
+    }
+    .workflow-hero {
+        grid-template-columns: 1fr;
+    }
+    .workflow-status {
+        grid-template-columns: 1fr;
+    }
+    .workspace-grid,
+    .workspace-grid__content {
+        grid-template-columns: 1fr;
+    }
+    .prompt-detail-grid,
+    .prompt-support-grid,
+    .execution-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE — MOBILE.
+========================================= */
+
+@media (max-width: 767px) {
+    .app-header {
+        padding: var(--space-3);
+    }
+    .app-header__brand {
+        gap: var(--space-2);
+    }
+    .app-header__mark {
+        width: 42px;
+        height: 42px;
+    }
+    .app-header__context {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    #reset-workflow-button {
+        width: 100%;
+    }
+    .dashboard {
+        padding: var(--space-3);
+    }
+    .model-start {
+        padding: var(--space-6) var(--space-3);
+    }
+    .model-start__title {
+        font-size: clamp(2.5rem, 16vw, 4rem);
+    }
+    .model-selector {
+        grid-template-columns: 1fr;
+    }
+    .model-card {
+        min-height: auto;
+    }
+    .onboarding-steps {
+        padding: var(--space-4);
+    }
+    .onboarding-steps__list {
+        grid-template-columns: 1fr;
+    }
+    .onboarding-step:not(:last-child)::after {
+        display: none;
+    }
+    body.has-active-model .dashboard {
+        padding: var(--space-3);
+    }
+    body.has-active-model #workflow {
+        gap: var(--space-4);
+        padding-top: var(--space-3);
+    }
+    body.has-active-model .workflow-status {
+        position: sticky;
+        top: var(--space-2);
+        z-index: 40;
+        border-radius: var(--radius-lg);
+    }
+    .workflow-hero {
+        grid-template-columns: 1fr;
+    }
+    .workflow-hero__title {
+        font-size: clamp(2rem, 12vw, 3.5rem);
+    }
+    .workspace-grid,
+    .workspace-grid__content,
+    .prompt-detail-grid,
+    .prompt-support-grid,
+    .execution-panel {
+        grid-template-columns: 1fr;
+    }
+    .prompt-detail-panel .panel__header {
+        grid-template-columns: 1fr;
+    }
+    .prompt-status-options {
+        justify-content: flex-start;
+    }
+    .prompt-status-option {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+    .prompt-original-card__header,
+    .validation-card__header {
+        grid-template-columns: 1fr;
+    }
+    #copy-prompt-button,
+    #copy-helper-prompt-button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================
+   MOTION PREFERENCES.
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms;
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+    }
+}
+
+
+/* =========================================
+   BLOCK 8 — FINAL POLISH.
+   Capa final de microajustes aprobados.
+========================================= */
+
+
+/* =========================================
+   GLOBAL POLISH.
+========================================= */
+
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+select,
+input,
+textarea {
+    touch-action: manipulation;
+}
+
+button {
+    border-style: solid;
+}
+
+
+/* =========================================
+   HEADER — FINAL POLISH.
+========================================= */
+
+.app-header__brand:hover .app-header__mark {
+    box-shadow: 0 0 0 7px rgba(124, 143, 53, 0.16), 0 10px 24px rgba(124, 143, 53, 0.18);
+}
+
+.app-header__brand:hover .app-header__title {
+    color: var(--color-text-inverse);
+}
+
+#reset-workflow-button {
+    transition: opacity var(--transition-base), background var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+}
+
+
+/* =========================================
+   HOME — FINAL RHYTHM.
+========================================= */
+
+body:not(.has-active-model) .model-start {
+    width: 100%;
+}
+
+body:not(.has-active-model) .model-start__header,
+body:not(.has-active-model) .model-selector,
+body:not(.has-active-model) .home-guide,
+body:not(.has-active-model) .home-footer {
+    width: 100%;
+}
+
+body:not(.has-active-model) .model-card {
+    isolation: isolate;
+}
+
+body:not(.has-active-model) .model-card__description,
+body:not(.has-active-model) .model-card__info {
+    text-wrap: pretty;
+}
+
+body:not(.has-active-model) .home-simple-title,
+body:not(.has-active-model) .model-start__title {
+    text-wrap: balance;
+}
+
+body:not(.has-active-model) .onboarding-steps__text,
+body:not(.has-active-model) .model-start__text {
+    text-wrap: pretty;
+}
+
+
+/* =========================================
+   HOME — MODEL CARD FINAL STATES.
+========================================= */
+
+body:not(.has-active-model) .model-card:focus-visible {
+    outline: 3px solid var(--model-accent-border);
+    outline-offset: 4px;
+}
+
+body:not(.has-active-model) .model-card:active {
+    transform: translateY(-2px);
+}
+
+body:not(.has-active-model) .model-card__meta {
+    line-height: 1;
+}
+
+body:not(.has-active-model) .model-card__info span {
+    display: block;
+}
+
+
+/* =========================================
+   HOME — ONBOARDING FINAL POLISH.
+========================================= */
+
+.onboarding-step:focus-within {
+    border-color: rgba(124, 143, 53, 0.34);
+}
+
+.onboarding-step__number {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+@media (min-width: 900px) {
+    body:not(.has-active-model) .onboarding-step:not(:last-child)::after {
+        opacity: 0.82;
+    }
+}
+
+
+/* =========================================
+   WORKFLOW — FINAL SECTION RHYTHM.
+========================================= */
+
+body.has-active-model .workflow {
+    width: 100%;
+}
+
+body.has-active-model .workflow-hero,
+body.has-active-model .workflow-status,
+body.has-active-model .workspace-grid {
+    width: 100%;
+}
+
+body.has-active-model .workflow-hero__title,
+body.has-active-model .workflow-status__title,
+body.has-active-model .panel__title,
+body.has-active-model .prompt-detail-panel .panel__title {
+    text-wrap: balance;
+}
+
+body.has-active-model .workflow-hero__text,
+body.has-active-model .summary-card__text,
+body.has-active-model .panel__text,
+body.has-active-model .detail-card__text,
+body.has-active-model .prompt-original-card__text,
+body.has-active-model .validation-card__text,
+body.has-active-model .helper-prompt-card__text {
+    text-wrap: pretty;
+}
+
+
+/* =========================================
+   WORKFLOW — STATUS BAR FINAL POLISH.
+========================================= */
+
+body.has-active-model .workflow-status {
+    isolation: isolate;
+}
+
+body.has-active-model .workflow-status__percentage {
+    min-width: 4ch;
+    text-align: right;
+}
+
+body.has-active-model .workflow-status .status-badge {
+    min-height: 32px;
+}
+
+body.has-active-model .workflow-status .progress-bar {
+    overflow: hidden;
+}
+
+
+/* =========================================
+   WORKFLOW — SIDEBAR FINAL POLISH.
+========================================= */
+
+body.has-active-model .prompt-sequence-panel {
+    scrollbar-gutter: stable;
+}
+
+body.has-active-model .prompt-step {
+    cursor: pointer;
+}
+
+body.has-active-model .prompt-step__state {
+    min-height: 24px;
+}
+
+body.has-active-model .prompt-step.is-selected .prompt-step__title {
+    color: var(--color-text);
+}
+
+body.has-active-model .prompt-step.is-selected .prompt-step__description {
+    color: var(--color-text-soft);
+}
+
+body.has-active-model .prompt-step.is-validated .prompt-step__title::after {
+    content: " ✓";
+    color: var(--color-success);
+    font-weight: var(--weight-black);
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT DETAIL FINAL POLISH.
+========================================= */
+
+body.has-active-model .prompt-detail-panel {
+    isolation: isolate;
+}
+
+body.has-active-model .detail-card__intro:first-child {
+    padding-top: 0;
+}
+
+body.has-active-model .detail-card__intro:first-child::before {
+    top: 0;
+}
+
+body.has-active-model .detail-toggle:last-child {
+    margin-bottom: 0;
+}
+
+body.has-active-model .detail-card__list li,
+body.has-active-model .expected-output-list li {
+    padding-left: 0.1rem;
+}
+
+body.has-active-model .prompt-original-card,
+body.has-active-model .validation-card,
+body.has-active-model .helper-prompt-card {
+    overflow: hidden;
+}
+
+body.has-active-model .prompt-code {
+    scrollbar-gutter: stable;
+}
+
+
+/* =========================================
+   WORKFLOW — PROMPT STATUS FINAL POLISH.
+========================================= */
+
+body.has-active-model .prompt-status-control__label {
+    line-height: 1;
+}
+
+body.has-active-model .prompt-status-option {
+    min-width: fit-content;
+}
+
+body.has-active-model .prompt-status-option:focus-visible {
+    outline: 3px solid rgba(163, 184, 77, 0.72);
+    outline-offset: 3px;
+}
+
+body.has-active-model .prompt-status-option.is-active {
+    font-weight: var(--weight-bold);
+}
+
+
+/* =========================================
+   WORKFLOW — CHECKLIST FINAL POLISH.
+========================================= */
+
+body.has-active-model .validation-check {
+    cursor: pointer;
+}
+
+body.has-active-model .validation-check:hover .validation-check__box {
+    border-color: var(--active-model-accent, var(--color-primary));
+}
+
+body.has-active-model .validation-check__input:checked~.validation-check__text {
+    color: var(--color-text);
+}
+
+body.has-active-model .validation-check__box {
+    flex: 0 0 auto;
+}
+
+
+/* =========================================
+   WORKFLOW — COPY BUTTON FINAL POLISH.
+========================================= */
+
+#copy-prompt-button,
+#copy-helper-prompt-button {
+    transition: transform var(--transition-base), background var(--transition-base), border-color var(--transition-base), color var(--transition-base), opacity var(--transition-base);
+}
+
+#copy-prompt-button:focus-visible,
+#copy-helper-prompt-button:focus-visible {
+    outline: 3px solid rgba(163, 184, 77, 0.72);
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   WORKFLOW — EXECUTION PANEL FINAL POLISH.
+========================================= */
+
+body.has-active-model .execution-panel .panel {
+    align-content: start;
+}
+
+body.has-active-model .expected-output-list {
+    text-wrap: pretty;
+}
+
+
+/* =========================================
+   RESPONSIVE FINAL — DESKTOP.
+========================================= */
+
+@media (min-width: 1200px) {
+    body.has-active-model .prompt-detail-grid {
+        grid-template-columns: minmax(300px, 0.58fr) minmax(0, 1fr);
+    }
+}
+
+@media (min-width: 1440px) {
+    body.has-active-model .workspace-grid {
+        grid-template-columns: minmax(270px, 300px) minmax(0, 1fr);
+    }
+    body.has-active-model .prompt-detail-grid {
+        grid-template-columns: minmax(320px, 0.56fr) minmax(0, 1fr);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE FINAL — MOBILE.
+========================================= */
+
+@media (max-width: 899px) {
+    body:not(.has-active-model) .model-start {
+        min-height: auto;
+    }
+    body:not(.has-active-model) .model-card {
+        min-height: auto;
+    }
+    body.has-active-model .workflow-status {
+        gap: var(--space-3);
+    }
+    body.has-active-model .prompt-sequence-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+    }
+    body.has-active-model .prompt-step {
+        min-height: auto;
+    }
+}
+
+
+/* =========================================
+   PRINT SAFETY.
+========================================= */
+
+@media print {
+    .app-header,
+    .skip-link,
+    #reset-workflow-button,
+    .prompt-status-control,
+    #copy-prompt-button,
+    #copy-helper-prompt-button {
+        display: none;
+    }
+    body {
+        color: #000000;
+        background: #ffffff;
+    }
+    .dashboard,
+    body.has-active-model .dashboard {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+        background: #ffffff;
+    }
+    .workflow-status,
+    .prompt-sequence-panel {
+        position: static;
+    }
+    .panel,
+    .prompt-original-card,
+    .validation-card,
+    .helper-prompt-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+}
+
+
+/* =========================================
+   MOBILE PATCH — WORKFLOW COMPACT MODE.
+   Ajustes específicos para menores a 900px.
+========================================= */
+
+@media (max-width: 899px) {
+    /* 1. STICKY MÁS COMPACTO. */
+    body.has-active-model .workflow-status {
+        top: 0;
+        gap: var(--space-2);
+        padding: 0.75rem 1rem;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    }
+    body.has-active-model .workflow-status__item--model {
+        display: none;
+    }
+    body.has-active-model .workflow-status__item--progress,
+    body.has-active-model .workflow-status__item--state {
+        padding-top: 0;
+        border-top: 0;
+    }
+    body.has-active-model .workflow-status__progress-header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+        gap: var(--space-2);
+    }
+    body.has-active-model .workflow-status__label {
+        font-size: var(--text-xs);
+    }
+    body.has-active-model .workflow-status__title {
+        font-size: var(--text-base);
+        line-height: 1.05;
+    }
+    body.has-active-model .workflow-status__percentage {
+        font-size: var(--text-md);
+        line-height: 1;
+    }
+    body.has-active-model .workflow-status .status-badge {
+        min-height: 28px;
+        padding: 0.35rem 0.55rem;
+        font-size: var(--text-xs);
+    }
+    /* 2. HERO MÁS CORTO. */
+    body.has-active-model .workflow-hero {
+        gap: var(--space-3);
+        padding: var(--space-3);
+    }
+    body.has-active-model .workflow-hero__title {
+        margin-bottom: var(--space-1);
+        font-size: clamp(1.75rem, 10vw, 2.5rem);
+    }
+    body.has-active-model .workflow-hero__text {
+        font-size: var(--text-sm);
+        line-height: 1.5;
+    }
+    body.has-active-model .summary-card {
+        padding: var(--space-3);
+    }
+    body.has-active-model .summary-card__title {
+        font-size: var(--text-base);
+    }
+    body.has-active-model .summary-card__text {
+        font-size: var(--text-sm);
+        line-height: 1.45;
+    }
+    /* 3. SECUENCIA MÁS CONTROLADA. */
+    body.has-active-model .prompt-sequence-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        padding: var(--space-3);
+    }
+    body.has-active-model .prompt-sequence-panel .panel__header {
+        margin-bottom: var(--space-2);
+    }
+    body.has-active-model .prompt-sequence-panel .panel__text {
+        font-size: var(--text-xs);
+        line-height: 1.4;
+    }
+    body.has-active-model .prompt-sequence {
+        max-height: 320px;
+        padding-right: 0.25rem;
+        overflow-y: auto;
+    }
+    /* 4. PROMPTS MÁS COMPACTOS. */
+    body.has-active-model .prompt-step {
+        min-height: auto;
+        gap: 0.65rem;
+        padding: 0.75rem;
+    }
+    body.has-active-model .prompt-step__number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+    body.has-active-model .prompt-step__title {
+        font-size: var(--text-sm);
+        line-height: 1.1;
+    }
+    body.has-active-model .prompt-step__description {
+        display: -webkit-box;
+        overflow: hidden;
+        font-size: var(--text-xs);
+        line-height: 1.3;
+        white-space: normal;
+    }
+    body.has-active-model .prompt-step__state {
+        margin-top: 0.15rem;
+        padding: 0.28rem 0.5rem;
+        font-size: 0.7rem;
+    }
+    /* 5. DETALLE MÁS COMPACTO. */
+    body.has-active-model .prompt-detail-panel,
+    body.has-active-model .prompt-original-card,
+    body.has-active-model .validation-card,
+    body.has-active-model .helper-prompt-card,
+    body.has-active-model .execution-panel .panel {
+        padding: var(--space-3);
+    }
+    body.has-active-model .prompt-detail-panel .panel__title,
+    body.has-active-model .prompt-original-card__title,
+    body.has-active-model .validation-card__title,
+    body.has-active-model .helper-prompt-card__title {
+        font-size: var(--text-base);
+    }
+    body.has-active-model .prompt-original-card__text,
+    body.has-active-model .validation-card__text,
+    body.has-active-model .helper-prompt-card__text,
+    body.has-active-model .next-step-card__text,
+    body.has-active-model .delivery-hint-card__text {
+        font-size: var(--text-sm);
+        line-height: 1.45;
+    }
+    body.has-active-model .prompt-code {
+        max-height: 220px;
+        font-size: var(--text-xs);
+        line-height: 1.5;
+    }
+    /* 6. MÁS AIRE CONTROLADO ENTRE BLOQUES. */
+    body.has-active-model #workflow {
+        gap: var(--space-3);
+        padding-top: 0;
+    }
+    body.has-active-model .workspace-grid,
+    body.has-active-model .workspace-grid__content,
+    body.has-active-model .prompt-detail-grid,
+    body.has-active-model .prompt-support-grid,
+    body.has-active-model .execution-panel {
+        gap: var(--space-3);
+    }
+}
+
+
+/* =========================================
+   MOBILE PATCH — HIDE HEADER CONTEXT PILLS.
+   Oculta Modelo activo y Delivery en header mobile.
+========================================= */
+
+@media (max-width: 899px) {
+    .app-header__context {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .app-header .context-pill,
+    .app-header .context-pill--delivery {
+        display: none !important;
+    }
+    #reset-workflow-button {
+        width: 100%;
+        display: inline-flex;
+    }
 }
