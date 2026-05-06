@@ -429,7 +429,7 @@ Business Context Report.
 - Main Risk if Unsolved (1 línea).
 - Priority User (1 línea).
 - Key Assumption to Validate First (1 línea).
-originalprompt: "[Pega aqu%C3%AD el PROMPT 0 %E2%80%94 WEBSITE STRATEGIC AUDIT %C3%ADntegro.]"
+originalprompt: "[Pega aquí el PROMPT 0 WEBSITE STRATEGIC AUDIT integro.]"
 ---
 
 ## FORMATO DE RESPUESTA.
