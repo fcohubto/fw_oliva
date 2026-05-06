@@ -4757,7 +4757,7 @@ Entrega:
                     "Agregar componentes sin necesidad."
                 ],
                 nextAction: "Usa esta especificación para traducir arquitectura a representación en el Prompt 7.5.",
-                originalPrompt: "[Pega aquí el PROMPT 7 — WIREFRAME ARCHITECTURE íntegro.]",
+                originalPrompt: originalPrompts.p7,
                 helperPrompt: `Usa el output del PROMPT 7 y conviértelo en una especificación corta para revisión.
   
   Incluye:
